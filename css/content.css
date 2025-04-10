@@ -1,0 +1,413 @@
+.page-content {
+  margin-left: 260px;
+  padding: 20px;
+  min-height: calc(100vh - 70px);
+  margin-top: 70px;
+  overflow: auto;
+  transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+  background-color: var(--light-gray);
+}
+
+.page-content.sidebar-hidden {
+  margin-left: 0; /* El contenido ocupa toda la pantalla cuando el sidebar está cerrado */
+}
+
+/* Para el overlay que cubre el fondo cuando el sidebar está abierto */
+.w3-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 998;
+  display: none;
+  transition: all var(--transition-speed);
+}
+
+/* Para ocultar el overlay cuando el sidebar se cierra */
+.w3-overlay.active {
+  display: block;
+}
+
+/* Empuje del contenido en pantallas pequeñas */
+.content-push-small {
+  margin-top: 64px;
+}
+
+/* Estilo para las secciones principales dentro del contenido */
+.content-section {
+  padding: 30px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+}
+
+/* Estilo del header dentro del contenido */
+.top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--medium-gray);
+}
+
+.top-header .w3-left {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+}
+
+.top-header .w3-right {
+  font-size: 1.3rem;
+}
+
+.top-header .w3-right i {
+  margin-left: 15px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.top-header .w3-right i:hover {
+  color: var(--primary-color);
+  transform: scale(1.2);
+}
+
+/* Estilo de la imagen dentro del header */
+.image-header {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.image-header img {
+  width: 100%;
+  height: auto;
+}
+
+.image-header .w3-display-topleft {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.image-header .w3-jumbo {
+  font-size: 48px;
+}
+
+.image-header .w3-button {
+  margin-top: 20px;
+  padding: 16px 32px;
+  font-size: 16px;
+  background-color: #000;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.image-header .w3-button:hover {
+  background-color: var(--accent-color);
+}
+
+/* PRODUCTO GRID - ACTUALIZACIONES */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.product-item {
+  transition: all var(--transition-speed);
+}
+
+.product-item .w3-container {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  margin-bottom: 25px;
+  transition: all var(--transition-speed);
+  /* Tamaño fijo para los contenedores */
+  height: 380px;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item .w3-container:hover {
+  box-shadow: var(--hover-shadow);
+  transform: translateY(-5px);
+}
+
+/* Área de imagen con tamaño fijo */
+.w3-display-container {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  overflow: hidden;
+}
+
+.product-item img {
+  width: 100%;
+  height: 280px;
+  object-fit: contain;
+  border-radius: 10px 10px 0 0;
+  transition: all 0.5s;
+}
+
+.product-item {
+  transform: scale(1.05);
+}
+
+/* Estilos para el área de información del producto */
+.product-item p {
+  padding: 15px;
+  margin: 0;
+  font-size: 1rem;
+  text-align: center;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product-item b {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  margin-top: 5px;
+  display: inline-block;
+}
+
+/* Etiquetas de producto mejoradas */
+.new-tag,
+.sale-tag {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 8px 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+.new-tag {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.sale-tag {
+  background-color: var(--accent-color);
+  color: white;
+}
+
+/* Botón de compra mejorado */
+.w3-display-middle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  opacity: 0;
+  transition: opacity var(--transition-speed);
+  width: 70%;
+}
+
+.w3-display-container:hover .w3-display-middle {
+  opacity: 1;
+}
+
+.buy-now-btn {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: var(--dark-gray);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.buy-now-btn:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+/* Estilo para la sección de suscripción */
+.w3-container.w3-black {
+  color: white;
+  text-align: center;
+  padding: 32px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, var(--secondary-color), var(--dark-gray));
+  margin: 40px 0;
+}
+
+.w3-container.w3-black h1 {
+  font-size: 2rem;
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.w3-container.w3-black p {
+  font-size: 1.1rem;
+  margin-bottom: 24px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.w3-input {
+  width: 100%;
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid var(--medium-gray);
+  transition: all var(--transition-speed);
+}
+
+.w3-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.w3-button.w3-red {
+  background-color: var(--primary-color);
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all var(--transition-speed);
+}
+
+.w3-button.w3-red:hover {
+  background-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: var(--box-shadow);
+}
+
+/* Ajustes responsivos */
+@media (max-width: 1024px) {
+  .page-content {
+    margin-left: 0;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .page-content {
+    padding: 15px;
+  }
+
+  .content-section {
+    padding: 20px;
+  }
+
+  .top-header .w3-left {
+    font-size: 1.5rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+  }
+
+  .product-item .w3-container {
+    height: 360px;
+  }
+
+  .product-item img,
+  .w3-display-container {
+    height: 260px;
+  }
+
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .content-section {
+    padding: 15px;
+  }
+
+  .top-header .w3-left {
+    font-size: 1.4rem;
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  .product-item .w3-container {
+    height: 340px;
+  }
+
+  .product-item img,
+  .w3-display-container {
+    height: 240px;
+  }
+}
+
+.rebajados-section, .categorias-section {
+  margin: 20px 0;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.product-item {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.product-item:hover {
+  transform: scale(1.05);
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.3s;
+}
+
+.category-card img {
+  width: 100%;
+  height: auto;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}

@@ -1,0 +1,155 @@
+/* ================= NAVBAR ================= */
+.navbar-top {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(135deg, #2c3e50, #34495e); /* Colores más oscuros y sofisticados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  z-index: 1000;
+}
+
+.navbar-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  height: 70px;
+}
+
+.navbar-item {
+  color: white;
+  text-decoration: none;
+  padding: 12px 20px; /* Aumentar el padding para un mejor espaciado */
+  font-size: 1rem; /* Aumentar el tamaño de la fuente */
+  font-weight: 600; /* Hacer la fuente más gruesa */
+  letter-spacing: 0.5px;
+  transition: all var(--transition-speed);
+  border-radius: 4px;
+  margin: 0 4px; /* Espaciado más uniforme */
+}
+
+.navbar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Dropdown (submenú) */
+.navbar-dropdown-hover {
+  position: relative;
+}
+
+.navbar-dropdown-hover:hover .navbar-dropdown-content {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar-dropdown-content {
+  display: none;
+  position: absolute;
+  background: white;
+  min-width: 180px;
+  box-shadow: var(--box-shadow);
+  border-radius: 8px;
+  overflow: hidden;
+  top: 100%;
+  right: 0;
+  z-index: 9999;
+}
+
+/* Estilo para el botón "More" */
+.navbar-dropdown-hover .navbar-button {
+  color: white;
+  font-size: 1rem;
+  font-weight: bolder;
+  padding: 12px 16px;
+  transition: all var(--transition-speed);
+  cursor: pointer;
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.navbar-dropdown-hover .navbar-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+
+}
+
+.navbar-dropdown-hover .navbar-button i {
+  margin-left: 5px;
+  transition: transform var(--transition-speed);
+}
+
+.navbar-dropdown-hover:hover .navbar-button i {
+  transform: rotate(180deg);
+}
+
+/* Estilo de los enlaces dentro del dropdown */
+.navbar-dropdown-content .navbar-item {
+  display: block;
+  padding: 12px 20px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all var(--transition-speed);
+  border-radius: 0;
+  margin: 0;
+}
+
+.navbar-dropdown-content .navbar-item:hover {
+  background: var(--light-gray);
+  color: var(--primary-color);
+  transform: translateX(5px);
+}
+
+/* Barra de búsqueda */
+.navbar-search-container {
+  display: flex;
+  align-items: center;
+  background-color: white; /* Fondo blanco para el contenedor */
+  border: 1px solid var(--medium-gray); /* Borde para distinguir la barra de búsqueda */
+  border-radius: 4px; /* Bordes redondeados */
+  padding: 4px; /* Espaciado interno */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+  flex-grow: 0; /* No crecer más allá de su tamaño base */
+  flex-basis: 55%; /* Ocupa el 70% del espacio disponible */
+  margin: 0 16px; /* Espaciado lateral para separar de otros elementos */
+}
+
+.navbar-search-input {
+  padding: 8px;
+  border: none;
+  border-radius: 4px;
+  margin-right: 4px; /* Espacio entre el campo de búsqueda y el botón */
+  font-size: 1rem;
+  width: 100%; /* Hacer que el input ocupe todo el ancho del contenedor */
+}
+
+.navbar-search-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--primary-color); /* Color del icono de búsqueda */
+  padding: 8px;
+  transition: transform var(--transition-speed); /* Añadir transición */
+}
+
+.navbar-search-button:hover {
+  transform: scale(1.1); /* Efecto de hover en el botón de búsqueda */
+}
+
+.navbar-search-button i {
+  font-size: 1.1rem;
+}

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>W3.CSS Template</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Roboto"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Montserrat"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/normallize.css" />
+    <link rel="stylesheet" href="css/navbar.css" />
+    <link rel="stylesheet" href="css/sidebar.css" />
+    <link rel="stylesheet" href="css/content.css" />
+    <style>
+      /* ================= GLOBAL STYLES ================= */
+      :root {
+        --primary-color: #3498db;
+        --secondary-color: #2c3e50;
+        --accent-color: #e74c3c;
+        --text-color: #2c3e50;
+        --light-gray: #f8f9fa;
+        --medium-gray: #e9ecef;
+        --dark-gray: #343a40;
+        --transition-speed: 0.3s;
+        --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --hover-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Montserrat", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-gray);
+        line-height: 1.6;
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="w3-content">
+    <div class="nav-top">
+      <div class="nav-bar nav-black nav-card">
+        <a
+          class="nav-item nav-button nav-padding-large nav-hide-medium nav-hide-large nav-right"
+          href="javascript:void(0)"
+          onclick="toggleNavMenu()"
+          title="Toggle Navigation Menu"
+        >
+          <i class="fa fa-bars"></i>
+        </a>
+
+        <a href="#" class="nav-item nav-button nav-padding-large">HOME</a>
+        <a
+          href="#band"
+          class="nav-item nav-button nav-padding-large nav-hide-small"
+          >BAND</a
+        >
+        <a
+          href="#tour"
+          class="nav-item nav-button nav-padding-large nav-hide-small"
+          >TOUR</a
+        >
+        <a
+          href="#contact"
+          class="nav-item nav-button nav-padding-large nav-hide-small"
+          >CONTACT</a
+        >
+        <div class="nav-dropdown-hover nav-hide-small">
+          <button class="nav-padding-large nav-button" title="More">
+            MORE <i class="fa fa-caret-down"></i>
+          </button>
+          <div class="nav-dropdown-content nav-bar-block nav-card-4">
+            <a href="#" class="nav-item nav-button">Merchandise</a>
+            <a href="#" class="nav-item nav-button">Extras</a>
+            <a href="#" class="nav-item nav-button">Media</a>
+          </div>
+        </div>
+        <a
+          href="javascript:void(0)"
+          class="nav-padding-large nav-hover-red nav-hide-small nav-right"
+        >
+          <i class="fa fa-search"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Sidebar/menu -->
+    <nav
+      class="sidebar sidebar-bar-block sidebar-white sidebar-collapse sidebar-top"
+      id="sidebarMenu"
+    >
+      <div
+        class="sidebar-container sidebar-display-container sidebar-padding-16"
+      >
+        <h3 class="sidebar-wide"><b>LOGO</b></h3>
+      </div>
+      <div class="sidebar-padding-64 sidebar-large sidebar-text-grey">
+        <a href="#" class="sidebar-item sidebar-button">Shirts</a>
+        <a href="#" class="sidebar-item sidebar-button">Dresses</a>
+
+        <a
+          onclick="toggleSidebarDropdown()"
+          href="javascript:void(0)"
+          class="sidebar-item sidebar-button sidebar-left-align"
+          id="sidebarDropdownBtn"
+        >
+          Jeans <i class="fa fa-chevron-right sidebar-dropdown-icon"></i>
+        </a>
+        <div id="sidebarDropdown" class="sidebar-dropdown">
+          <a href="#" class="sidebar-item sidebar-button sidebar-light-grey"
+            >Skinny</a
+          >
+          <a href="#" class="sidebar-item sidebar-button">Relaxed</a>
+          <a href="#" class="sidebar-item sidebar-button">Bootcut</a>
+          <a href="#" class="sidebar-item sidebar-button">Straight</a>
+        </div>
+
+        <a href="#" class="sidebar-item sidebar-button">Jackets</a>
+        <a href="#" class="sidebar-item sidebar-button">Gymwear</a>
+        <a href="#" class="sidebar-item sidebar-button">Blazers</a>
+        <a href="#" class="sidebar-item sidebar-button">Shoes</a>
+      </div>
+      <a href="#footer" class="sidebar-item sidebar-button sidebar-padding"
+        >Contact</a
+      >
+      <a
+        href="javascript:void(0)"
+        class="sidebar-item sidebar-button sidebar-padding"
+        onclick="document.getElementById('newsletter')"
+        >Newsletter</a
+      >
+      <a href="#footer" class="sidebar-item sidebar-button sidebar-padding"
+        >Subscribe</a
+      >
+    </nav>
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div
+      class="w3-overlay w3-hide-large overlay-small-screen"
+      onclick="w3_close()"
+      title="close side menu"
+      id="myOverlay"
+    ></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main page-content">
+      <!-- Push down content on small screens -->
+      <div class="w3-hide-large content-push-small"></div>
+      <div class="content-section">
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge top-header">
+          <p class="w3-left">Jeans</p>
+          <p class="w3-right">
+            <i class="fa fa-shopping-cart w3-margin-right"></i>
+            <i class="fa fa-search"></i>
+          </p>
+        </header>
+
+        <!-- Product grid -->
+        <div class="w3-row w3-grayscale product-grid">
+          <div class="w3-col l3 s6 product-item">
+            <div class="w3-container">
+              <img src="/w3images/jeans1.jpg" />
+              <p>Ripped Skinny Jeans<br /><b>$24.99</b></p>
+            </div>
+            <div class="w3-container">
+              <img src="/w3images/jeans2.jpg" />
+              <p>Mega Ripped Jeans<br /><b>$19.99</b></p>
+            </div>
+          </div>
+
+          <div class="w3-col l3 s6 product-item">
+            <div class="w3-container">
+              <div class="w3-display-container">
+                <img src="/w3images/jeans2.jpg" />
+                <span class="w3-tag w3-display-topleft new-tag">New</span>
+              </div>
+              <p>Mega Ripped Jeans<br /><b>$19.99</b></p>
+            </div>
+            <div class="w3-container">
+              <img src="/w3images/jeans3.jpg" />
+              <p>Washed Skinny Jeans<br /><b>$20.50</b></p>
+            </div>
+          </div>
+
+          <div class="w3-col l3 s6 product-item">
+            <div class="w3-container">
+              <img src="/w3images/jeans3.jpg" />
+              <p>Washed Skinny Jeans<br /><b>$20.50</b></p>
+            </div>
+            <div class="w3-container">
+              <div class="w3-display-container">
+                <img src="/w3images/jeans4.jpg" />
+                <span class="w3-tag w3-display-topleft sale-tag">Sale</span>
+              </div>
+              <p>Vintage Skinny Jeans<br /><b class="w3-text-red">$14.99</b></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer
+          class="w3-padding-64 w3-light-grey w3-small w3-center footer-section"
+          id="footer"
+        >
+          <div class="w3-row-padding footer-columns">
+            <div class="w3-col s4 footer-column">
+              <h4>Contact</h4>
+              <p>Questions? Go ahead.</p>
+              <form action="/action_page.php" target="_blank">
+                <p>
+                  <input
+                    class="w3-input w3-border"
+                    type="text"
+                    placeholder="Name"
+                    name="Name"
+                    required
+                  />
+                </p>
+                <p>
+                  <input
+                    class="w3-input w3-border"
+                    type="text"
+                    placeholder="Email"
+                    name="Email"
+                    required
+                  />
+                </p>
+                <p>
+                  <input
+                    class="w3-input w3-border"
+                    type="text"
+                    placeholder="Subject"
+                    name="Subject"
+                    required
+                  />
+                </p>
+                <p>
+                  <input
+                    class="w3-input w3-border"
+                    type="text"
+                    placeholder="Message"
+                    name="Message"
+                    required
+                  />
+                </p>
+                <button type="submit" class="w3-button w3-block w3-black">
+                  Send
+                </button>
+              </form>
+            </div>
+
+            <div class="w3-col s4 footer-column">
+              <h4>About</h4>
+              <p><a href="#">About us</a></p>
+              <p><a href="#">We're hiring</a></p>
+              <p><a href="#">Support</a></p>
+              <p><a href="#">Find store</a></p>
+              <p><a href="#">Shipment</a></p>
+              <p><a href="#">Payment</a></p>
+              <p><a href="#">Gift card</a></p>
+              <p><a href="#">Return</a></p>
+              <p><a href="#">Help</a></p>
+            </div>
+
+            <div class="w3-col s4 w3-justify footer-column">
+              <h4>Store</h4>
+              <p><i class="fa fa-fw fa-map-marker"></i> Company Name</p>
+              <p><i class="fa fa-fw fa-phone"></i> 0044123123</p>
+              <p><i class="fa fa-fw fa-envelope"></i> ex@mail.com</p>
+              <h4>We accept</h4>
+              <p><i class="fa fa-fw fa-cc-amex"></i> Amex</p>
+              <p><i class="fa fa-fw fa-credit-card"></i> Credit Card</p>
+              <br />
+              <i
+                class="fa fa-facebook-official w3-hover-opacity w3-large social-icon"
+              ></i>
+              <i
+                class="fa fa-instagram w3-hover-opacity w3-large social-icon"
+              ></i>
+              <i
+                class="fa fa-snapchat w3-hover-opacity w3-large social-icon"
+              ></i>
+              <i
+                class="fa fa-pinterest-p w3-hover-opacity w3-large social-icon"
+              ></i>
+              <i
+                class="fa fa-twitter w3-hover-opacity w3-large social-icon"
+              ></i>
+              <i
+                class="fa fa-linkedin w3-hover-opacity w3-large social-icon"
+              ></i>
+            </div>
+          </div>
+        </footer>
+
+        <div class="w3-black w3-center w3-padding-24 footer-credit">
+          Powered by
+          <a
+            href="https://www.w3schools.com/w3css/default.asp"
+            title="W3.CSS"
+            target="_blank"
+            class="w3-hover-opacity"
+            >w3.css</a
+          >
+        </div>
+
+        <!-- End page content -->
+      </div>
+    </div>
+
+    <script>
+      var open = false;
+      function toggleNavMenu() {
+        var sidebar = document.getElementById("sidebarMenu");
+        var pageContent = document.querySelector(".page-content");
+        var overlay = document.getElementById("myOverlay");
+
+        // Si el sidebar está abierto
+        if (!open) {
+          sidebar.classList.remove("sidebar-open"); // Oculta el sidebar
+          sidebar.classList.add("sidebar-closed"); // Oculta el sidebar
+          pageContent.classList.add("sidebar-hidden"); // Ajusta el contenido
+          overlay.classList.add("active"); // Muestra el overlay
+          open = true; // Marca el sidebar como cerrado
+        } else {
+          sidebar.classList.remove("sidebar-closed"); // Muestra el sidebar
+          sidebar.classList.add("sidebar-open"); // Oculta el sidebar
+          pageContent.classList.remove("sidebar-hidden"); // Restaura el contenido
+          overlay.classList.remove("active"); // Oculta el overlay
+          open = false; // Marca el sidebar como abierto
+        }
+      }
+
+      // Función para el menú desplegable (Accordion)
+      function toggleSidebarDropdown() {
+        var dropdown = document.getElementById("sidebarDropdown");
+        var button = document.getElementById("sidebarDropdownBtn");
+
+        // Alternar la clase 'active' en el botón y desplegar el submenú
+        button.classList.toggle("active");
+        dropdown.classList.toggle("sidebar-hide");
+      }
+
+      // Abrir y cerrar el sidebar
+      function w3_open() {
+        // Aquí se abriría el sidebar, necesitas implementar el código adecuado si usas un overlay.
+        document.getElementById("mySidebar").style.width = "250px"; // Asegura que el sidebar se expanda
+        document.getElementById("myOverlay").style.display = "block"; // Muestra el overlay (si lo tienes)
+      }
+
+      function w3_close() {
+        // Aquí se cerraría el sidebar
+        document.getElementById("mySidebar").style.width = "0"; // Colapsa el sidebar
+        document.getElementById("myOverlay").style.display = "none"; // Oculta el overlay
+      }
+
+      // Función para el ejemplo del Accordion (abrir automáticamente "Jeans")
+      document.getElementById("sidebarDropdownBtn").click(); // Abre automáticamente el submenú "Jeans" por demo
+      // Función para cerrar el sidebar con animación
+      function closeSidebar() {
+        document.getElementById("sidebarMenu").classList.add("sidebar-closed");
+      }
+
+      // Función para abrir el sidebar (opcional)
+      function openSidebar() {
+        document
+          .getElementById("sidebarMenu")
+          .classList.remove("sidebar-closed");
+      }
+    </script>
+  </body>
+</html>

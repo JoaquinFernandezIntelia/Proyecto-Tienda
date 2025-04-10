@@ -1,0 +1,91 @@
+.footer-section {
+    margin-left: 260px;
+    padding: 20px;
+    margin-top: 70px;
+    overflow: auto;
+    transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+    background-color: var(--light-gray);
+}
+
+.footer-section.sidebar-hidden {
+    margin-left: 0; /* El footer ocupa toda la pantalla cuando el sidebar está cerrado */
+}
+
+.footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 250px;
+    width: 90%; /* Ajustar el ancho de las columnas al 90% del footer */
+    margin: 0 auto; /* Centrar las columnas dentro del footer */
+}
+
+.footer-column h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--secondary-color);
+}
+
+.footer-column p {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all var(--transition-speed);
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+.footer-column a:hover {
+    color: var(--primary-color);
+    transform: translateX(5px);
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+}
+
+.social-icon {
+    font-size: 1.5rem;
+    color: var(--dark-gray);
+    transition: all var(--transition-speed);
+}
+
+.social-icon:hover {
+    color: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+.footer-credit {
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.footer-credit a {
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all var(--transition-speed);
+}
+
+.footer-credit a:hover {
+    text-decoration: underline;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 1024px) {
+    .footer-section {
+        left: 0; /* El footer ocupa toda la pantalla en pantallas pequeñas */
+        margin-top: 20px; /* Reduce el margen superior */
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-columns {
+        grid-template-columns: 1fr; /* Apila las columnas en pantallas pequeñas */
+    }
+}
