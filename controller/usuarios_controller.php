@@ -10,8 +10,6 @@ function home()
 }
 
 
-
-
 function login() {
     require_once("model/usuarios_model.php");
     $datos = new Usuarios_model();
@@ -179,26 +177,21 @@ function actualizar_carrito() {
 }
 
 function finalizar_compra() {
-    // Check if user is logged in
-    if (!isset($_SESSION["username"])) {
-        header("Location: index.php?controlador=usuarios&action=login");
-        exit;
-    }
-    
-    // Check if cart is not empty
+    // Check if cart is empty
     if (!isset($_SESSION['carrito']) || count($_SESSION['carrito']) == 0) {
         header("Location: index.php?controlador=usuarios&action=ver_carrito");
         exit;
     }
     
-    // Here you would implement the checkout process
-    // For now, we'll just show a success message
+    // Calculate cart total
+    $total = 0;
+    foreach ($_SESSION['carrito'] as $item) {
+        $subtotal = $item['precio'] * $item['cantidad'];
+        $total += $subtotal;
+    }
     
-    // Clear the cart after successful checkout
-    $_SESSION['carrito'] = [];
-    
-    $message = "¡Gracias por tu compra!";
-    require_once("view/carrito_view.php");
+    // Load the checkout view
+    require_once("view/checkout_view.php");
 }
 
 function desconectar() {
@@ -213,4 +206,48 @@ function desconectar() {
     session_destroy();
     header("Location: index.php");
     exit;
+}
+
+function procesar_pedido() {
+    // Verificar si hay productos en el carrito
+    if (!isset($_SESSION['carrito']) || count($_SESSION['carrito']) == 0) {
+        header("Location: index.php");
+        exit;
+    }
+    
+    // Verificar si el usuario está logueado
+    if (!isset($_SESSION['username'])) {
+        header("Location: index.php?controlador=usuarios&action=login");
+        exit;
+    }
+    
+    // Verificar que todos los campos requeridos estén presentes
+    $camposRequeridos = ['nombre', 'apellidos', 'email', 'telefono', 'direccion', 
+                        'ciudad', 'provincia', 'codigo_postal', 'nombre_tarjeta', 
+                        'numero_tarjeta', 'fecha_expiracion', 'cvv'];
+    
+    foreach ($camposRequeridos as $campo) {
+        if (!isset($_POST[$campo]) || empty($_POST[$campo])) {
+            // Redirigir de vuelta al formulario con un mensaje de error
+            header("Location: index.php?controlador=usuarios&action=finalizar_compra&error=missing_fields");
+            exit;
+        }
+    }
+    
+    // Aquí irían las validaciones adicionales de los datos
+    // Y el procesamiento del pago
+    
+    // Crear el pedido en la base de datos
+    // (Esto requeriría tener un modelo de pedidos)
+    
+    // Vaciar el carrito
+    $_SESSION['carrito'] = [];
+    
+    // Redirigir a una página de confirmación
+    header("Location: index.php?controlador=usuarios&action=confirmacion_pedido");
+    exit;
+}
+
+function confirmacion_pedido() {
+    require_once("view/confirmacion_pedido_view.php");
 }

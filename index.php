@@ -95,6 +95,7 @@
   function openSidebarMenu() {
     document.getElementById("sidebarMenu").classList.remove("sidebar-closed");
   }
+
   
 </script>
 </body>

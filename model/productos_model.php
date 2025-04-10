@@ -22,19 +22,33 @@ class Productos_model
     }
 
     public function buscar_productos($searchTerm) {
-        $sql = "SELECT * FROM productos WHERE nombre_producto LIKE ? OR codigo_producto LIKE ?";
+        $datos = [];
+        
+        // Search only by nombre_producto
+        $sql = "SELECT * FROM productos WHERE nombre_producto LIKE ?";
+        
         $stmt = $this->db->prepare($sql);
+        
+        // Check if prepare was successful
+        if ($stmt === false) {
+            error_log("Prepare failed: " . $this->db->error);
+            return $datos; // Return empty array if prepare failed
+        }
+        
         $likeTerm = "%" . $searchTerm . "%";
-        $stmt->bind_param("ss", $likeTerm, $likeTerm);
+        
+        // Only one parameter now since we're only searching by name
+        $stmt->bind_param("s", $likeTerm);
         $stmt->execute();
         $result = $stmt->get_result();
-        $datos = [];
+        
         while ($registro = $result->fetch_assoc()) {
             $datos[] = $registro;
         }
+        
+        $stmt->close();
         return $datos;
     }
-
     public function get_producto_by_id($codigo) {
         $sql = "SELECT * FROM productos WHERE codigo = ?";
         $stmt = $this->db->prepare($sql);
