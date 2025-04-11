@@ -20,6 +20,97 @@ class Productos_model
         }
         return $this->datos;
     }
+    
+    public function get_productos_by_categoria($categoria_id)
+    {
+        $datos = [];
+        $sql = "SELECT * FROM productos WHERE categoria = ? ORDER BY fecha_subida DESC";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $categoria_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        while ($registro = $result->fetch_assoc()) {
+            $datos[] = $registro;
+        }
+        
+        return $datos;
+    }
+    
+    public function get_categorias()
+    {
+        $categorias = [];
+        $sql = "SELECT * FROM categoria ORDER BY nombre_categoria";
+        $consulta = $this->db->query($sql);
+        
+        while ($registro = $consulta->fetch_assoc()) {
+            $categorias[] = $registro;
+        }
+        
+        return $categorias;
+    }
+    
+    public function get_categorias_por_general($catgeneral_id)
+    {
+        $categorias = [];
+        $sql = "SELECT * FROM categoria WHERE catgeneral_id = ? ORDER BY nombre_categoria";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $catgeneral_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        while ($registro = $result->fetch_assoc()) {
+            $categorias[] = $registro;
+        }
+        
+        return $categorias;
+    }
+    
+    public function get_categorias_generales()
+    {
+        $categorias = [];
+        $sql = "SELECT * FROM categorias_generales ORDER BY nombre_catgeneral";
+        $consulta = $this->db->query($sql);
+        
+        while ($registro = $consulta->fetch_assoc()) {
+            $categorias[] = $registro;
+        }
+        
+        return $categorias;
+    }
+    
+    public function get_categoria_general_by_id($catgeneral_id)
+    {
+        $sql = "SELECT * FROM categorias_generales WHERE codigo_catgeneral = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $catgeneral_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        
+        return null;
+    }
+    
+    public function get_categoria_by_id($categoria_id)
+    {
+        $sql = "SELECT c.*, cg.nombre_catgeneral 
+                FROM categoria c
+                LEFT JOIN categorias_generales cg ON c.catgeneral_id = cg.codigo_catgeneral
+                WHERE c.codigo_categoria = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("i", $categoria_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        }
+        
+        return null;
+    }
 
     public function buscar_productos($searchTerm) {
         $datos = [];
@@ -49,8 +140,13 @@ class Productos_model
         $stmt->close();
         return $datos;
     }
+    
     public function get_producto_by_id($codigo) {
-        $sql = "SELECT * FROM productos WHERE codigo = ?";
+        $sql = "SELECT p.*, c.nombre_categoria, cg.nombre_catgeneral 
+                FROM productos p 
+                LEFT JOIN categoria c ON p.categoria = c.codigo_categoria 
+                LEFT JOIN categorias_generales cg ON c.catgeneral_id = cg.codigo_catgeneral
+                WHERE p.codigo = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $codigo);
         $stmt->execute();

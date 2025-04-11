@@ -5,35 +5,62 @@ function home()
     require_once("model/productos_model.php");
     $datos = new Productos_model();
     $array = $datos->get_productos();
+    $categorias_generales = $datos->get_categorias_generales();
     require_once("view/home_view.php");
 }
 
-function componentes() {
+function ver_categoria() {
+    // Obtener el id de categoría si se proporciona, si no usar 0 para todos
+    $categoria_id = isset($_GET['categoria']) ? $_GET['categoria'] : 0;
+    
     require_once("model/productos_model.php");
     $datos = new Productos_model();
-    $array = $datos->get_productos();
-    require_once("view/componentes_view.php");
-
-    if (isset($_POST['search'])) {
-        $searchTerm = $_POST['search'];
-        require_once('model/productos_model.php');
-        $datos = new Productos_model();
-        $resultados = $datos->buscar_productos($searchTerm); // Llama a la función de búsqueda
     
-        // Generar el HTML para los resultados
-        if (empty($resultados)) {
-            echo '<p>No se encontraron productos que coincidan con su búsqueda.</p>';
-        } else {
-            foreach ($resultados as $producto) {
-                echo '<div class="product-item">
-                        <div class="w3-container">
-                            <img src="uploads/' . htmlspecialchars($producto['imagen'] . '.avif') . '" alt="' . htmlspecialchars($producto['nombre_producto']) . '" />
-                            <p>' . htmlspecialchars($producto['nombre_producto']) . '<br><b>' . htmlspecialchars($producto['precio']) . '€</b></p>
-                        </div>
-                      </div>';
+    // Obtener el nombre de la categoría
+    $nombre_categoria = "Todos los productos";
+    $nombre_catgeneral = "";
+    if ($categoria_id > 0) {
+        $categoria = $datos->get_categoria_by_id($categoria_id);
+        if ($categoria) {
+            $nombre_categoria = $categoria['nombre_categoria'];
+            if (!empty($categoria['nombre_catgeneral'])) {
+                $nombre_catgeneral = $categoria['nombre_catgeneral'];
             }
         }
     }
+    
+    // Obtener productos filtrados por categoría
+    $array = $categoria_id > 0 ? 
+        $datos->get_productos_by_categoria($categoria_id) : 
+        $datos->get_productos();
+    
+    // Cargar categorías generales para el menú
+    $categorias_generales = $datos->get_categorias_generales();
+    
+    require_once("view/categoria_view.php");
+}
+
+function componentes() {
+    // Redireccionar a la nueva función ver_categoria para la categoría "Componentes"
+    require_once("model/productos_model.php");
+    $datos = new Productos_model();
+    $categorias = $datos->get_categorias();
+    
+    // Buscar el ID de la categoría "Componentes"
+    $componentesId = 0;
+    foreach ($categorias as $cat) {
+        if ($cat['nombre_categoria'] == 'Componentes') {
+            $componentesId = $cat['codigo_categoria'];
+            break;
+        }
+    }
+    
+    if ($componentesId > 0) {
+        header("Location: index.php?controlador=productos&action=ver_categoria&categoria=" . $componentesId);
+    } else {
+        header("Location: index.php?controlador=productos&action=ver_categoria");
+    }
+    exit;
 }
 
 function buscar()
@@ -43,6 +70,7 @@ function buscar()
         require_once('model/productos_model.php');
         $datos = new Productos_model();
         $resultados = $datos->buscar_productos($searchTerm);
+        $categorias_generales = $datos->get_categorias_generales();
         
         require_once("view/search_results_view.php");
     } else {
@@ -58,6 +86,7 @@ function ver_detalle() {
         require_once("model/productos_model.php");
         $datos = new Productos_model();
         $producto = $datos->get_producto_by_id($codigo);
+        $categorias_generales = $datos->get_categorias_generales();
         
         if ($producto) {
             require_once("view/producto_detalle_view.php");

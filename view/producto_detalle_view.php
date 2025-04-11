@@ -125,7 +125,9 @@ require_once('view/navbar_view.php');
                         <input type="number" id="cantidad" name="cantidad" value="1" min="1" class="quantity-input">
                         <button type="submit" class="w3-button w3-green">Añadir al carrito</button>
                     </form>
-                    
+                    <div class="product-category">
+  Categoría: <a href="index.php?controlador=productos&action=ver_categoria&categoria=<?php echo htmlspecialchars($producto['categoria']); ?>"><?php echo htmlspecialchars($producto['nombre_categoria']); ?></a>
+</div>
                     <div class="rating-section">
                         <h3>Valorar este producto:</h3>
                         <div class="rating-stars">
