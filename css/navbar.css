@@ -1,10 +1,12 @@
-/* ================= NAVBAR ================= */
+
+
+/* ================= NAVBAR (REDUCIDO) ================= */
 .navbar-top {
   position: fixed;
   top: 0;
   width: 100%;
-  background: linear-gradient(135deg, #2c3e50, #34495e); /* Colores más oscuros y sofisticados */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+  background: linear-gradient(90deg, #2c3e50, #1a252f);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   z-index: 1000;
 }
 
@@ -12,27 +14,64 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
-  height: 70px;
+  padding: 0 16px;
+  height: 56px; /* Reducido de 70px */
 }
 
 .navbar-item {
-  color: white;
+  color: #fff;
   text-decoration: none;
-  padding: 12px 20px; /* Aumentar el padding para un mejor espaciado */
-  font-size: 1rem; /* Aumentar el tamaño de la fuente */
-  font-weight: 600; /* Hacer la fuente más gruesa */
+  padding: 8px 16px; /* Reducido de 12px 20px */
+  font-size: 0.9rem; /* Reducido de 1rem */
+  font-weight: 600;
   letter-spacing: 0.5px;
   transition: all var(--transition-speed);
   border-radius: 4px;
-  margin: 0 4px; /* Espaciado más uniforme */
+  margin: 0 2px; /* Reducido de 0 4px */
 }
 
 .navbar-item:hover {
   background: rgba(255, 255, 255, 0.1);
-  transform: translateY(-2px);
+  transform: translateY(-1px); /* Reducido de -2px */
 }
 
+/* Dropdown (submenú) en navbar */
+.navbar-dropdown-hover .navbar-button {
+  color: white;
+  font-size: 0.9rem; /* Reducido de 1rem */
+  font-weight: 600;
+  padding: 8px 12px; /* Reducido de 12px 16px */
+}
+
+/* Barra de búsqueda */
+.navbar-search-container {
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px; /* Más redondeado */
+  padding: 2px 8px; /* Reducido */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-basis: 45%; /* Reducido de 55% */
+  margin: 0 12px;
+}
+
+.navbar-search-input {
+  padding: 6px 8px; /* Reducido */
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-size: 0.9rem; /* Reducido */
+  width: 100%;
+}
+
+.navbar-search-input::placeholder {
+  color: #ddd;
+}
+
+.navbar-search-button {
+  color: white;
+  padding: 6px;
+}
 /* Dropdown (submenú) */
 .navbar-dropdown-hover {
   position: relative;
@@ -116,16 +155,32 @@
 
 /* Barra de búsqueda */
 .navbar-search-container {
-  display: flex;
-  align-items: center;
-  background-color: white; /* Fondo blanco para el contenedor */
-  border: 1px solid var(--medium-gray); /* Borde para distinguir la barra de búsqueda */
-  border-radius: 4px; /* Bordes redondeados */
-  padding: 4px; /* Espaciado interno */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  flex-grow: 0; /* No crecer más allá de su tamaño base */
-  flex-basis: 55%; /* Ocupa el 70% del espacio disponible */
-  margin: 0 16px; /* Espaciado lateral para separar de otros elementos */
+  background-color: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px; /* Más redondeado */
+  padding: 2px 8px; /* Reducido */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-basis: 45%; /* Reducido de 55% */
+  margin: 0 12px;
+}
+
+.navbar-search-input {
+  padding: 6px 8px; /* Reducido */
+  border: none;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-size: 0.9rem; /* Reducido */
+  width: 100%;
+}
+
+.navbar-search-input::placeholder {
+  color: #ddd;
+}
+
+.navbar-search-button {
+  color: white;
+  padding: 6px;
 }
 
 .navbar-search-container form {

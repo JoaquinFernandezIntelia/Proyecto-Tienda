@@ -51,7 +51,6 @@ if (!isset($_SESSION["username"])) {
         </button>
     </form>
 </div>
-            
             <!-- Carrito desplegable simplificado -->
             <div class="navbar-dropdown-hover navbar-hide-small">
                 <a href="index.php?controlador=usuarios&action=ver_carrito" class="navbar-padding-large navbar-button" title="Ver carrito">

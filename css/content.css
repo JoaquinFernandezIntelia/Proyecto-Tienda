@@ -3,7 +3,6 @@
   margin-left: 260px;
   padding: 20px;
   min-height: calc(100vh - 70px);
-  margin-top: 70px;
   overflow: auto;
   transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
   background-color: var(--light-gray);
