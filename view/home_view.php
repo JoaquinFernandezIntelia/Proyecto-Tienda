@@ -20,14 +20,22 @@ $productos_rebajados = array_filter($productos, function ($producto) {
         <section class="rebajados-section">
             <h2>Productos Rebajados</h2>
             <div class="product-grid">
-                <?php foreach ($productos_rebajados as $producto): ?>
-                    <div class="product-item">
-                        <div class="w3-container">
-                            <img src="uploads/<?php echo htmlspecialchars($producto['imagen'] . '.avif'); ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>" />
-                            <p><?php echo htmlspecialchars($producto['nombre_producto']); ?><br><b><?php echo htmlspecialchars($producto['precio']); ?>€</b></p>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
+        <!-- En home_view.php -->
+<?php foreach ($productos_rebajados as $producto): ?>
+    <div class="product-item">
+        <div class="w3-container">
+            <img src="uploads/<?php echo htmlspecialchars($producto['imagen'] . '.avif'); ?>" alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>" />
+            <p><?php echo htmlspecialchars($producto['nombre_producto']); ?><br>
+                <?php if($producto['rebajado'] == 1 && isset($producto['precio_rebajado'])): ?>
+                    <span style="text-decoration: line-through; color: #888;"><?php echo htmlspecialchars(number_format($producto['precio'], 2)); ?>€</span>
+                    <b class="discount-price"><?php echo htmlspecialchars(number_format($producto['precio_rebajado'], 2)); ?>€</b>
+                <?php else: ?>
+                    <b><?php echo htmlspecialchars(number_format($producto['precio'], 2)); ?>€</b>
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
+<?php endforeach; ?>
             </div>
         </section>
         <!-- Sección de categorías -->

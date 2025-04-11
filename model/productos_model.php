@@ -11,31 +11,41 @@ class Productos_model
     }
     //TODO: DECLARAR METODOS DE ACCESO A LOS DATOS...
 
-    public function get_productos()
-    {
-        $sql = "SELECT * FROM productos ORDER BY fecha_subida DESC";
-        $consulta = $this->db->query($sql);
-        while ($registro = $consulta->fetch_assoc()) {
-            $this->datos[] = $registro;
-        }
-        return $this->datos;
+// En productos_model.php, actualizar el método get_productos
+public function get_productos()
+{
+    $sql = "SELECT *, 
+            CASE WHEN rebajado = 1 AND precio_rebajado IS NOT NULL 
+                 THEN precio_rebajado 
+                 ELSE precio 
+            END as precio_final 
+            FROM productos ORDER BY fecha_subida DESC";
+    $consulta = $this->db->query($sql);
+    while ($registro = $consulta->fetch_assoc()) {
+        $this->datos[] = $registro;
+    }
+    return $this->datos;
+}
+public function get_productos_by_categoria($categoria_id)
+{
+    $datos = [];
+    $sql = "SELECT *, 
+            CASE WHEN rebajado = 1 AND precio_rebajado IS NOT NULL 
+                 THEN precio_rebajado 
+                 ELSE precio 
+            END as precio_final 
+            FROM productos WHERE categoria = ? ORDER BY fecha_subida DESC";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bind_param("i", $categoria_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while ($registro = $result->fetch_assoc()) {
+        $datos[] = $registro;
     }
     
-    public function get_productos_by_categoria($categoria_id)
-    {
-        $datos = [];
-        $sql = "SELECT * FROM productos WHERE categoria = ? ORDER BY fecha_subida DESC";
-        $stmt = $this->db->prepare($sql);
-        $stmt->bind_param("i", $categoria_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        
-        while ($registro = $result->fetch_assoc()) {
-            $datos[] = $registro;
-        }
-        
-        return $datos;
-    }
+    return $datos;
+}
     
     public function get_categorias()
     {
@@ -142,7 +152,11 @@ class Productos_model
     }
     
     public function get_producto_by_id($codigo) {
-        $sql = "SELECT p.*, c.nombre_categoria, cg.nombre_catgeneral 
+        $sql = "SELECT p.*, c.nombre_categoria, cg.nombre_catgeneral,
+                CASE WHEN p.rebajado = 1 AND p.precio_rebajado IS NOT NULL 
+                     THEN p.precio_rebajado 
+                     ELSE p.precio 
+                END as precio_final 
                 FROM productos p 
                 LEFT JOIN categoria c ON p.categoria = c.codigo_categoria 
                 LEFT JOIN categorias_generales cg ON c.catgeneral_id = cg.codigo_catgeneral

@@ -72,7 +72,17 @@ if (empty($array)) {
             <div class="w3-container product-card">
               <a href="index.php?controlador=productos&action=ver_detalle&codigo=' . htmlspecialchars($registro["codigo"]) . '" class="product-link">
                 <img src="uploads/' . htmlspecialchars($registro["imagen"] . ".avif") . '"/>
-                <p>' . htmlspecialchars($registro["nombre_producto"]) . '<br><b>' . htmlspecialchars($registro["precio"]) . '€</b></p>
+                <p>' . htmlspecialchars($registro["nombre_producto"]) . '<br>';
+                
+                // Display prices with discount formatting if applicable
+                if($registro['rebajado'] == 1 && isset($registro['precio_rebajado'])) {
+                  echo '<span style="text-decoration: line-through; color: #888;">' . htmlspecialchars(number_format($registro['precio'], 2)) . '€</span> 
+                        <b class="discount-price">' . htmlspecialchars(number_format($registro['precio_rebajado'], 2)) . '€</b>';
+                } else {
+                  echo '<b>' . htmlspecialchars(number_format($registro['precio'], 2)) . '€</b>';
+                }
+                
+    echo '</p>
               </a>
               <form method="post" action="index.php?controlador=usuarios&action=almacenar_pedidos">
                 <input type="hidden" name="codigo_producto" value="' . htmlspecialchars($registro["codigo"]) . '">
