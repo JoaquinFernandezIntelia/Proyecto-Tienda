@@ -22,7 +22,7 @@ if (!isset($categorias_generales)) {
       $btnId = 'btn' . str_replace(' ', '', $catGeneral['nombre_catgeneral']);
       $subcategorias = $modeloCategorias->get_categorias_por_general($catGeneral['codigo_catgeneral']);
       ?>
-
+    
       <a onclick="toggleSidebarMenuDropdown('<?php echo $dropdownId; ?>', '<?php echo $btnId; ?>')" href="javascript:void(0)" class="sidebar-menu-item sidebar-menu-button sidebar-align-left" id="<?php echo $btnId; ?>">
         <?php echo strtoupper($catGeneral['nombre_catgeneral']); ?> <i class="fa fa-chevron-right sidebar-dropdown-arrow"></i>
       </a>

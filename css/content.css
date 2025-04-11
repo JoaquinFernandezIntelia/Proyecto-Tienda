@@ -23,7 +23,7 @@
   bottom: 0;
   z-index: 998; /* Below content but above sidebar */
   display: none;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.4);
   transition: all 0.3s ease;
   pointer-events: none; /* By default, allow clicks to pass through */
 }
@@ -40,7 +40,7 @@
 }
 
 /* Ensure product cards are clickable */
-.product-card, 
+.product-card,
 .category-card {
   position: relative;
   z-index: 1000; /* Above page-content */

@@ -39,17 +39,13 @@ require_once('view/navbar_view.php');
         gap: 20px;
     }
 
-    /* All cards shared styles */
-    .product-card {
+    /* Left column - Gallery */
+    .product-gallery {
+        flex: 0 0 30%;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         padding: 20px;
-    }
-
-    /* Left column - Gallery */
-    .product-gallery {
-        flex: 0 0 30%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -64,7 +60,7 @@ require_once('view/navbar_view.php');
 
     /* Middle column - Info */
     .product-details {
-        flex: 0 0 38%;
+        flex: 0 0 40%;
     }
 
     .product-title {
@@ -90,7 +86,6 @@ require_once('view/navbar_view.php');
         font-size: 18px;
         margin-bottom: 10px;
         font-weight: 600;
-        color: #2c3e50;
     }
 
     .product-category {
@@ -111,6 +106,10 @@ require_once('view/navbar_view.php');
     /* Right column - Buy box */
     .product-buy-box {
         flex: 0 0 25%;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        padding: 20px;
     }
 
     .product-availability {
@@ -204,41 +203,17 @@ require_once('view/navbar_view.php');
         color: #666;
     }
 
-    .shipping-info p {
-        margin: 5px 0;
-    }
-
-    .shipping-info i {
-        margin-right: 5px;
-    }
-
     /* Rating section */
     .rating-section {
-        flex-basis: 100%;
         margin-top: 40px;
+        border-top: 1px solid #eee;
+        padding-top: 20px;
+        flex-basis: 100%;
     }
 
-    .ratings-card {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        padding: 25px;
-    }
-
-    .ratings-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-        padding-bottom: 15px;
-        border-bottom: 1px solid #eee;
-    }
-
-    .ratings-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #2c3e50;
-        margin: 0;
+    .rating-title {
+        font-size: 18px;
+        margin-bottom: 15px;
     }
 
     .rating-stars {
@@ -258,80 +233,21 @@ require_once('view/navbar_view.php');
     }
     
     .rating-form textarea {
-        width: 100%;
         margin-bottom: 15px;
         height: 100px;
-        padding: 12px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-family: inherit;
-        font-size: 14px;
     }
     
     .submit-rating-btn {
-        padding: 10px 20px;
+        padding: 10px 15px;
         background-color: #3498db;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        font-weight: 500;
-        transition: background-color 0.3s;
     }
     
     .submit-rating-btn:hover {
         background-color: #2980b9;
-    }
-
-    /* Comments section */
-    .comments-section {
-        margin-top: 30px;
-    }
-
-    .comment {
-        padding: 15px 0;
-        border-bottom: 1px solid #eee;
-    }
-
-    .comment:last-child {
-        border-bottom: none;
-    }
-
-    .comment-header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 10px;
-    }
-
-    .comment-user {
-        font-weight: 600;
-        color: #333;
-    }
-
-    .comment-date {
-        color: #888;
-        font-size: 14px;
-    }
-
-    .comment-rating {
-        display: flex;
-        margin-bottom: 8px;
-    }
-
-    .comment-rating .star {
-        font-size: 16px;
-        cursor: default;
-    }
-
-    .comment-text {
-        color: #555;
-        line-height: 1.5;
-    }
-
-    .no-comments {
-        text-align: center;
-        color: #777;
-        padding: 20px 0;
     }
 
     .back-button {
@@ -384,14 +300,14 @@ require_once('view/navbar_view.php');
 
         <div class="product-content">
             <!-- Left column - Product gallery -->
-            <div class="product-gallery product-card">
+            <div class="product-gallery">
                 <img src="uploads/<?php echo htmlspecialchars($producto['imagen']); ?>.avif" 
                      alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>" 
                      class="product-image">
             </div>
 
             <!-- Middle column - Product details -->
-            <div class="product-details product-card">
+            <div class="product-details">
                 <h1 class="product-title"><?php echo htmlspecialchars($producto['nombre_producto']); ?></h1>
                 <div class="product-reference">Código: <?php echo htmlspecialchars($producto['codigo']); ?></div>
                 
@@ -409,7 +325,7 @@ require_once('view/navbar_view.php');
             </div>
 
             <!-- Right column - Buy box -->
-            <div class="product-buy-box product-card">
+            <div class="product-buy-box">
                 <div class="product-availability">
                     <span class="availability-dot"></span> En stock - Envío inmediato
                 </div>
@@ -444,66 +360,26 @@ require_once('view/navbar_view.php');
                 <div class="shipping-info">
                     <p><i class="fa fa-truck"></i> Envío gratis para pedidos superiores a 50€</p>
                     <p><i class="fa fa-shield"></i> Garantía de 2 años en todos los productos</p>
-                    <p><i class="fa fa-credit-card"></i> Pago seguro</p>
                 </div>
             </div>
 
             <!-- Rating section - Full width -->
             <div class="rating-section">
-                <div class="ratings-card">
-                    <!-- Ratings header -->
-                    <div class="ratings-header">
-                        <h3 class="ratings-title">Opiniones y valoraciones</h3>
-                        <div class="overall-rating">
-                            <!-- Here you could show the average rating if implemented -->
-                        </div>
-                    </div>
-                    
-                    <!-- Add new rating section -->
-                    <div class="add-rating-section">
-                        <h4>Valorar este producto:</h4>
-                        <div class="rating-stars">
-                            <span class="star" data-rating="1">★</span>
-                            <span class="star" data-rating="2">★</span>
-                            <span class="star" data-rating="3">★</span>
-                            <span class="star" data-rating="4">★</span>
-                            <span class="star" data-rating="5">★</span>
-                        </div>
-                        
-                        <form id="rating-form" class="rating-form" method="post" action="index.php?controlador=productos&action=valorar_producto">
-                            <input type="hidden" name="codigo_producto" value="<?php echo htmlspecialchars($producto['codigo']); ?>">
-                            <input type="hidden" name="rating" id="rating-value" value="0">
-                            <textarea name="comentario" placeholder="Comparte tu experiencia con este producto..." class="w3-input w3-border"></textarea>
-                            <button type="submit" class="submit-rating-btn">Enviar valoración</button>
-                        </form>
-                    </div>
-                    
-                    <!-- Comments section - sample display, adapt to your data -->
-                    <div class="comments-section">
-                        <h4>Comentarios de clientes</h4>
-                        
-                        <?php if (isset($valoraciones) && !empty($valoraciones)): ?>
-                            <?php foreach ($valoraciones as $valoracion): ?>
-                                <div class="comment">
-                                    <div class="comment-header">
-                                        <div class="comment-user"><?php echo htmlspecialchars($valoracion['nombre_usuario'] ?? 'Usuario'); ?></div>
-                                        <div class="comment-date"><?php echo htmlspecialchars($valoracion['fecha'] ?? date('d/m/Y')); ?></div>
-                                    </div>
-                                    <div class="comment-rating">
-                                        <?php for ($i = 1; $i <= 5; $i++): ?>
-                                            <span class="star" style="color: <?php echo ($i <= $valoracion['puntuacion']) ? '#ffdb58' : '#ffc107'; ?>">★</span>
-                                        <?php endfor; ?>
-                                    </div>
-                                    <div class="comment-text"><?php echo htmlspecialchars($valoracion['comentario'] ?? ''); ?></div>
-                                </div>
-                            <?php endforeach; ?>
-                        <?php else: ?>
-                            <div class="no-comments">
-                                <p>Este producto aún no tiene valoraciones. ¡Sé el primero en opinar!</p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
+                <h3 class="rating-title">Valorar este producto:</h3>
+                <div class="rating-stars">
+                    <span class="star" data-rating="1">★</span>
+                    <span class="star" data-rating="2">★</span>
+                    <span class="star" data-rating="3">★</span>
+                    <span class="star" data-rating="4">★</span>
+                    <span class="star" data-rating="5">★</span>
                 </div>
+                
+                <form id="rating-form" class="rating-form" method="post" action="index.php?controlador=productos&action=valorar_producto">
+                    <input type="hidden" name="codigo_producto" value="<?php echo htmlspecialchars($producto['codigo']); ?>">
+                    <input type="hidden" name="rating" id="rating-value" value="0">
+                    <textarea name="comentario" placeholder="Deja tu comentario (opcional)" class="w3-input w3-border"></textarea>
+                    <button type="submit" class="submit-rating-btn">Enviar valoración</button>
+                </form>
                 
                 <a href="javascript:history.back()" class="back-button">← Volver a la página anterior</a>
             </div>
@@ -513,7 +389,7 @@ require_once('view/navbar_view.php');
 
 <script>
     // Rating functionality
-    const stars = document.querySelectorAll('.rating-stars .star');
+    const stars = document.querySelectorAll('.star');
     const ratingInput = document.getElementById('rating-value');
 
     stars.forEach(star => {
@@ -531,3 +407,5 @@ require_once('view/navbar_view.php');
         });
     });
 </script>
+
+<?php include_once 'footer_view.php'; ?>
