@@ -17,18 +17,18 @@ if (!isset($categorias_generales)) {
   </div>
   <div class="sidebar-padding-large sidebar-large sidebar-text-dark">
     <?php foreach ($categorias_generales as $catGeneral): ?>
-      <?php 
-        $dropdownId = 'dropdown' . str_replace(' ', '', $catGeneral['nombre_catgeneral']);
-        $btnId = 'btn' . str_replace(' ', '', $catGeneral['nombre_catgeneral']);
-        $subcategorias = $modeloCategorias->get_categorias_por_general($catGeneral['codigo_catgeneral']);
+      <?php
+      $dropdownId = 'dropdown' . str_replace(' ', '', $catGeneral['nombre_catgeneral']);
+      $btnId = 'btn' . str_replace(' ', '', $catGeneral['nombre_catgeneral']);
+      $subcategorias = $modeloCategorias->get_categorias_por_general($catGeneral['codigo_catgeneral']);
       ?>
-      
+
       <a onclick="toggleSidebarMenuDropdown('<?php echo $dropdownId; ?>', '<?php echo $btnId; ?>')" href="javascript:void(0)" class="sidebar-menu-item sidebar-menu-button sidebar-align-left" id="<?php echo $btnId; ?>">
         <?php echo strtoupper($catGeneral['nombre_catgeneral']); ?> <i class="fa fa-chevron-right sidebar-dropdown-arrow"></i>
       </a>
       <div id="<?php echo $dropdownId; ?>" class="sidebar-menu-dropdown">
-        <?php if(!empty($subcategorias)): ?>
-          <?php foreach($subcategorias as $subcat): ?>
+        <?php if (!empty($subcategorias)): ?>
+          <?php foreach ($subcategorias as $subcat): ?>
             <a href="index.php?controlador=productos&action=ver_categoria&categoria=<?php echo $subcat['codigo_categoria']; ?>" class="sidebar-menu-item sidebar-menu-button">
               <?php echo strtoupper($subcat['nombre_categoria']); ?>
             </a>
@@ -38,7 +38,7 @@ if (!isset($categorias_generales)) {
         <?php endif; ?>
       </div>
     <?php endforeach; ?>
-    
+
     <!-- Enlace para ver todos los productos -->
     <a href="index.php?controlador=productos&action=ver_categoria" class="sidebar-menu-item sidebar-menu-button">TODOS LOS PRODUCTOS</a>
   </div>

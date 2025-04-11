@@ -1,3 +1,4 @@
+/* Estructura principal de la página */
 .page-content {
   margin-left: 260px;
   padding: 20px;
@@ -6,43 +7,76 @@
   overflow: auto;
   transition: margin-left 0.4s cubic-bezier(0.77, 0, 0.175, 1);
   background-color: var(--light-gray);
+  position: relative; /* Added position relative */
+  z-index: 1; /* Ensure proper stacking */
 }
 
 .page-content.sidebar-hidden {
-  margin-left: 0; /* El contenido ocupa toda la pantalla cuando el sidebar está cerrado */
+  margin-left: 0;
 }
 
-/* Para el overlay que cubre el fondo cuando el sidebar está abierto */
+/* Overlay para fondos */
 .w3-overlay {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 998;
+  z-index: 998; /* Below content but above sidebar */
   display: none;
-  transition: all var(--transition-speed);
+  background-color: rgba(0,0,0,0.4);
+  transition: all 0.3s ease;
+  pointer-events: none; /* By default, allow clicks to pass through */
 }
 
-/* Para ocultar el overlay cuando el sidebar se cierra */
 .w3-overlay.active {
   display: block;
+  pointer-events: auto; /* Only capture clicks when active */
 }
 
-/* Empuje del contenido en pantallas pequeñas */
+/* Ensure content is above overlay */
+.page-content {
+  position: relative;
+  z-index: 999; /* Above overlay */
+}
+
+/* Ensure product cards are clickable */
+.product-card, 
+.category-card {
+  position: relative;
+  z-index: 1000; /* Above page-content */
+}
+
+.product-link,
+.category-link {
+  position: relative;
+  z-index: 1001; /* Above cards */
+  cursor: pointer; /* Ensure cursor shows it's clickable */
+}
+
+/* For small screens, adjust overlay behavior */
+@media (max-width: 992px) {
+  .w3-overlay.active {
+    z-index: 1002; /* Above content on small screens */
+    pointer-events: auto; /* Capture clicks when active on small screens */
+  }
+}
+/* Ajuste para pantallas pequeñas */
 .content-push-small {
   margin-top: 64px;
 }
 
-/* Estilo para las secciones principales dentro del contenido */
+/* Secciones de contenido */
 .content-section {
   padding: 30px;
   background-color: white;
   border-radius: 10px;
   box-shadow: var(--box-shadow);
+  position: relative; /* Added position relative */
+  z-index: 2; /* Ensure it's above overlay when needed */
 }
 
-/* Estilo del header dentro del contenido */
+/* Encabezado de páginas */
 .top-header {
   display: flex;
   justify-content: space-between;
@@ -58,246 +92,201 @@
   color: var(--secondary-color);
 }
 
-.top-header .w3-right {
-  font-size: 1.3rem;
+.categoria-title {
+  font-size: 24px;
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
-.top-header .w3-right i {
-  margin-left: 15px;
-  color: var(--text-color);
-  cursor: pointer;
-  transition: all var(--transition-speed);
+.categoria-general {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 20px;
 }
 
-.top-header .w3-right i:hover {
-  color: var(--primary-color);
-  transform: scale(1.2);
-}
-
-/* Estilo de la imagen dentro del header */
-.image-header {
-  position: relative;
+/* Mensaje de no productos */
+.no-products {
+  padding: 30px;
   text-align: center;
-  color: white;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+  margin: 20px auto;
+  max-width: 600px;
+  color: #6c757d;
+  font-size: 18px;
 }
 
-.image-header img {
-  width: 100%;
-  height: auto;
+.no-products i {
+  display: block;
+  margin-bottom: 15px;
+  color: #adb5bd;
 }
 
-.image-header .w3-display-topleft {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
-
-.image-header .w3-jumbo {
-  font-size: 48px;
-}
-
-.image-header .w3-button {
-  margin-top: 20px;
-  padding: 16px 32px;
-  font-size: 16px;
-  background-color: #000;
-  color: white;
-  border: none;
-  cursor: pointer;
-  transition: all var(--transition-speed);
-}
-
-.image-header .w3-button:hover {
-  background-color: var(--accent-color);
-}
-
-/* PRODUCTO GRID - ACTUALIZACIONES */
+/* Grids para productos y categorías */
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 25px;
-  margin-top: 30px;
+  gap: 20px;
+  margin-top: 20px;
+  position: relative; /* Added position relative */
+  z-index: 3; /* Ensure it's above other elements */
 }
 
-.product-item {
-  transition: all var(--transition-speed);
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  position: relative; /* Added position relative */
+  z-index: 3; /* Ensure it's above other elements */
 }
 
-.product-item .w3-container {
+/* Secciones de rebajados y categorías */
+.rebajados-section,
+.categorias-section {
+  margin: 30px 0;
+  position: relative; /* Added position relative */
+}
+
+/* Estilos de tarjetas de producto con tamaño fijo */
+.product-card {
   background-color: white;
-  border-radius: 10px;
+  border-radius: 8px;
   box-shadow: var(--box-shadow);
-  overflow: hidden;
-  margin-bottom: 25px;
-  transition: all var(--transition-speed);
-  /* Tamaño fijo para los contenedores */
-  height: 380px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: flex;
   flex-direction: column;
-}
-
-.product-item .w3-container:hover {
-  box-shadow: var(--hover-shadow);
-  transform: translateY(-5px);
-}
-
-/* Área de imagen con tamaño fijo */
-.w3-display-container {
+  height: var(--card-height);
+  overflow: hidden;
   position: relative;
-  width: 100%;
-  height: 280px;
-  overflow: hidden;
-}
-
-.product-item img {
-  width: 100%;
-  height: 280px;
-  object-fit: contain;
-  border-radius: 10px 10px 0 0;
-  transition: all 0.5s;
-}
-
-.product-item {
-  transform: scale(1.05);
-}
-
-/* Estilos para el área de información del producto */
-.product-item p {
-  padding: 15px;
+  padding: 0;
   margin: 0;
-  font-size: 1rem;
-  text-align: center;
-  flex-grow: 1;
+  z-index: 4; /* Ensure cards are clickable */
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.product-link {
+  text-decoration: none;
+  color: inherit;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%; /* Use full height of card */
+  overflow: hidden;
+  position: relative; /* Added position relative */
+  z-index: 5; /* Higher z-index than product-card */
 }
 
-.product-item b {
-  color: var(--accent-color);
-  font-size: 1.1rem;
-  margin-top: 5px;
-  display: inline-block;
-}
-
-/* Etiquetas de producto mejoradas */
-.new-tag,
-.sale-tag {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  padding: 8px 12px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  border-radius: 4px;
-  z-index: 2;
-}
-
-.new-tag {
-  background-color: var(--primary-color);
-  color: white;
-}
-
-.sale-tag {
-  background-color: var(--accent-color);
-  color: white;
-}
-
-/* Botón de compra mejorado */
-.w3-display-middle {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  opacity: 0;
-  transition: opacity var(--transition-speed);
-  width: 70%;
-}
-
-.w3-display-container:hover .w3-display-middle {
-  opacity: 1;
-}
-
-.buy-now-btn {
+/* Contenedor para la imagen */
+.image-container {
   width: 100%;
-  padding: 12px 15px;
-  background-color: var(--dark-gray);
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition-speed);
+  height: var(--image-height);
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  background-color: #f9f9f9;
 }
 
-.buy-now-btn:hover {
-  background-color: var(--primary-color);
+.product-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Contener la imagen sin recortar */
+}
+
+/* Contenedor para el nombre y precio */
+.product-info {
+  padding: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 12px;
+  color: var(--text-color);
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* Increased from 2 to 3 for more text */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  height: 60px; /* Increased from 40px */
+}
+
+.product-price {
+  margin-top: auto;
+}
+
+.original-price {
+  text-decoration: line-through;
+  color: #888;
+  font-size: 14px;
+}
+
+.discount-price {
+  color: var(--accent-color);
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.regular-price {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--secondary-color);
+}
+
+/* Estilos de tarjetas de categoría */
+.category-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.3s;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  position: relative; /* Added position relative */
+  z-index: 4; /* Same as product cards */
+}
+
+.category-card:hover {
   transform: scale(1.05);
 }
 
-/* Estilo para la sección de suscripción */
-.w3-container.w3-black {
-  color: white;
-  text-align: center;
-  padding: 32px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--secondary-color), var(--dark-gray));
-  margin: 40px 0;
+.category-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative; /* Added position relative */
+  z-index: 5; /* Ensure links are clickable */
 }
 
-.w3-container.w3-black h1 {
-  font-size: 2rem;
-  margin-bottom: 16px;
-  font-weight: 700;
-}
-
-.w3-container.w3-black p {
-  font-size: 1.1rem;
-  margin-bottom: 24px;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.w3-input {
+.category-card img {
   width: 100%;
-  padding: 12px 16px;
-  margin-bottom: 16px;
-  font-size: 1rem;
-  border-radius: 5px;
-  border: 1px solid var(--medium-gray);
-  transition: all var(--transition-speed);
+  height: 150px;
+  object-fit: cover;
 }
 
-.w3-input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
-}
-
-.w3-button.w3-red {
-  background-color: var(--primary-color);
-  padding: 12px 24px;
-  font-size: 1rem;
+.category-card h3 {
+  padding: 10px;
+  margin: 0;
   font-weight: 600;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: all var(--transition-speed);
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.w3-button.w3-red:hover {
-  background-color: var(--accent-color);
-  transform: translateY(-3px);
-  box-shadow: var(--box-shadow);
+.search-term {
+  color: var(--primary-color);
+  font-weight: 600;
 }
 
 /* Ajustes responsivos */
@@ -306,8 +295,9 @@
     margin-left: 0;
   }
 
-  .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  :root {
+    --card-height: 340px;
+    --image-height: 200px;
   }
 }
 
@@ -320,26 +310,17 @@
     padding: 20px;
   }
 
-  .top-header .w3-left {
-    font-size: 1.5rem;
-  }
-
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   }
 
-  .product-item .w3-container {
-    height: 360px;
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 
-  .product-item img,
-  .w3-display-container {
-    height: 260px;
-  }
-
-  .footer-columns {
-    grid-template-columns: 1fr;
+  :root {
+    --card-height: 320px;
+    --image-height: 180px;
   }
 }
 
@@ -348,66 +329,23 @@
     padding: 15px;
   }
 
-  .top-header .w3-left {
-    font-size: 1.4rem;
-  }
-
   .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
   }
 
-  .product-item .w3-container {
-    height: 340px;
+  .category-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
   }
 
-  .product-item img,
-  .w3-display-container {
-    height: 240px;
+  :root {
+    --card-height: 300px;
+    --image-height: 160px;
   }
-}
 
-.rebajados-section, .categorias-section {
-  margin: 20px 0;
-}
-
-.product-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.product-item {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: var(--box-shadow);
-  overflow: hidden;
-  transition: transform 0.3s;
-}
-
-.product-item:hover {
-  transform: scale(1.05);
-}
-
-.category-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.category-card {
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: var(--box-shadow);
-  text-align: center;
-  overflow: hidden;
-  transition: transform 0.3s;
-}
-
-.category-card img {
-  width: 100%;
-  height: auto;
-}
-
-.category-card:hover {
-  transform: scale(1.05);
+  .product-name {
+    font-size: 14px;
+    height: 50px;
+  }
 }
