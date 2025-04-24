@@ -33,8 +33,6 @@ if (!isset($categorias_generales)) {
               <?php echo strtoupper($subcat['nombre_categoria']); ?>
             </a>
           <?php endforeach; ?>
-        <?php else: ?>
-          <a href="#" class="sidebar-menu-item sidebar-menu-button">SIN SUBCATEGORÍAS</a>
         <?php endif; ?>
       </div>
     <?php endforeach; ?>

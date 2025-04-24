@@ -5,7 +5,6 @@ require_once('view/navbar_view.php');
 
 <style>
     .product-detail-container {
-        max-width: 1400px;
         margin: 0 auto;
         padding: 20px;
     }
@@ -41,7 +40,7 @@ require_once('view/navbar_view.php');
 
     /* Left column - Gallery */
     .product-gallery {
-        flex: 0 0 30%;
+        flex: 0 0 50%;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -60,7 +59,7 @@ require_once('view/navbar_view.php');
 
     /* Middle column - Info */
     .product-details {
-        flex: 0 0 40%;
+        flex: 0 0 100%;
     }
 
     .product-title {
@@ -105,7 +104,7 @@ require_once('view/navbar_view.php');
 
     /* Right column - Buy box */
     .product-buy-box {
-        flex: 0 0 25%;
+        flex: 0 0 40%;
         background-color: white;
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -268,7 +267,7 @@ require_once('view/navbar_view.php');
             flex: 0 0 40%;
         }
         .product-details {
-            flex: 0 0 55%;
+            flex: 0 0 100%;
         }
         .product-buy-box {
             flex: 0 0 100%;
@@ -305,26 +304,6 @@ require_once('view/navbar_view.php');
                      alt="<?php echo htmlspecialchars($producto['nombre_producto']); ?>" 
                      class="product-image">
             </div>
-
-            <!-- Middle column - Product details -->
-            <div class="product-details">
-                <h1 class="product-title"><?php echo htmlspecialchars($producto['nombre_producto']); ?></h1>
-                <div class="product-reference">Código: <?php echo htmlspecialchars($producto['codigo']); ?></div>
-                
-                <div class="product-description">
-                    <h3>Descripción:</h3>
-                    <p><?php echo nl2br(htmlspecialchars($producto['descripcion'])); ?></p>
-                </div>
-                
-                <div class="product-category">
-                    <strong>Categoría:</strong> 
-                    <a href="index.php?controlador=productos&action=ver_categoria&categoria=<?php echo htmlspecialchars($producto['categoria']); ?>">
-                        <?php echo htmlspecialchars($producto['nombre_categoria']); ?>
-                    </a>
-                </div>
-            </div>
-
-            <!-- Right column - Buy box -->
             <div class="product-buy-box">
                 <div class="product-availability">
                     <span class="availability-dot"></span> En stock - Envío inmediato
@@ -362,6 +341,26 @@ require_once('view/navbar_view.php');
                     <p><i class="fa fa-shield"></i> Garantía de 2 años en todos los productos</p>
                 </div>
             </div>
+            <!-- Middle column - Product details -->
+            <div class="product-details">
+                <h1 class="product-title"><?php echo htmlspecialchars($producto['nombre_producto']); ?></h1>
+                <div class="product-reference">Código: <?php echo htmlspecialchars($producto['codigo']); ?></div>
+                
+                <div class="product-description">
+                    <h3>Descripción:</h3>
+                    <p><?php echo nl2br(htmlspecialchars($producto['descripcion'])); ?></p>
+                </div>
+                
+                <div class="product-category">
+                    <strong>Categoría:</strong> 
+                    <a href="index.php?controlador=productos&action=ver_categoria&categoria=<?php echo htmlspecialchars($producto['categoria']); ?>">
+                        <?php echo htmlspecialchars($producto['nombre_categoria']); ?>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right column - Buy box -->
+            
 
             <!-- Rating section - Full width -->
             <div class="rating-section">
