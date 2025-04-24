@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 11-04-2025 a las 10:27:44
+-- Tiempo de generación: 24-04-2025 a las 15:15:28
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -36,6 +36,13 @@ CREATE TABLE `carrito` (
   `cantidad` int(11) NOT NULL,
   `fecha_agregado` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `carrito`
+--
+
+INSERT INTO `carrito` (`id`, `codigo_usuario`, `codigo_producto`, `cantidad`, `fecha_agregado`) VALUES
+(242, 3, 'COMP003', 1, '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -89,9 +96,20 @@ INSERT INTO `categorias_generales` (`codigo_catgeneral`, `nombre_catgeneral`) VA
 (4, 'Bisuteria'),
 (2, 'Electrodomesticos'),
 (1, 'Electronica'),
-(5, 'Farmacia'),
-(6, 'Jardineria'),
 (3, 'Para tu Hogar');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `comentario`
+--
+
+CREATE TABLE `comentario` (
+  `codigo_comentario` varchar(100) NOT NULL,
+  `comentario` text NOT NULL,
+  `codigo_usuario` int(11) NOT NULL,
+  `codigo_producto` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -103,6 +121,7 @@ CREATE TABLE `productos` (
   `codigo` varchar(12) NOT NULL,
   `nombre_producto` varchar(100) NOT NULL,
   `precio` double NOT NULL,
+  `precio_rebajado` double DEFAULT NULL,
   `imagen` varchar(500) NOT NULL,
   `descripcion` text NOT NULL,
   `vendedor` varchar(100) NOT NULL,
@@ -115,74 +134,74 @@ CREATE TABLE `productos` (
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`codigo`, `nombre_producto`, `precio`, `imagen`, `descripcion`, `vendedor`, `fecha_subida`, `rebajado`, `categoria`) VALUES
-('ACC001', 'Pendientes Aro Grandes', 19.99, 'pendientes-aro.jpg', 'Pendientes de aro de 5cm de diámetro, acabado dorado mate.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
-('ACC002', 'Pulsera Elástica con Charms', 24.99, 'pulsera-charms.jpg', 'Pulsera elástica con diferentes charms decorativos, ajustable a todas las muñecas.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 15),
-('ACC003', 'Broche Floral Vintage', 15.99, 'broche-floral.jpg', 'Broche con diseño floral estilo vintage, acabado en oro envejecido con detalles de cristal.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
-('ACC004', 'Set de Horquillas Decorativas', 12.99, 'horquillas-deco.jpg', 'Conjunto de 6 horquillas decorativas con perlas y cristales para peinados de ocasión.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
-('ACC005', 'Tobillera con Colgantes', 18.99, 'tobillera-colgantes.jpg', 'Tobillera ajustable con pequeños colgantes en forma de estrella, chapada en plata.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
-('AIRE001', 'Aire Acondicionado Split Daikin 2200 frig/h', 549.99, 'daikin-split.jpg', 'Aire acondicionado inverter con 2200 frigorías, eficiencia A++ y muy silencioso.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 6),
-('AIRE002', 'Aire Acondicionado Portátil Delonghi PAC', 349.99, 'delonghi-portatil.jpg', 'Aire acondicionado portátil de 2700 frigorías con función deshumidificador y mando a distancia.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 6),
-('AIRE003', 'Multi Split Mitsubishi 3x1', 1299.99, 'mitsubishi-multi.jpg', 'Sistema multisplit 3x1 con unidad exterior y tres unidades interiores para climatizar varias habitaciones.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 6),
-('AIRE004', 'Ventilador de Torre Rowenta Eole Infinite', 89.99, 'rowenta-ventilador.jpg', 'Ventilador de torre con 3 velocidades, modo noche y temporizador de 8 horas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 6),
-('ANIL001', 'Anillo Solitario con Circonita', 49.99, 'anillo-solitario.jpg', 'Anillo solitario con piedra circonita central de 6mm, acabado en plata de ley.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 14),
-('ANIL002', 'Set de 3 Anillos Apilables', 39.99, 'anillos-apilables.jpg', 'Conjunto de 3 anillos finos para combinar en acabados oro, plata y oro rosa.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 14),
-('ANIL003', 'Anillo Ajustable con Perla', 29.99, 'anillo-perla.jpg', 'Anillo ajustable con perla sintética y detalles en forma de hojas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 14),
-('ANIL004', 'Alianza Fina con Grabado', 59.99, 'alianza-grabado.jpg', 'Alianza fina con posibilidad de grabado interior, en plata de primera ley.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 14),
-('COLL001', 'Collar Gargantilla con Cristales', 29.99, 'collar-gargantilla.jpg', 'Gargantilla ajustable con cristales transparentes, acabado en plata.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 13),
-('COLL002', 'Collar Colgante Corazón', 39.99, 'collar-corazon.jpg', 'Cadena con colgante de corazón y detalle de circonita, baño en oro rosa.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 13),
-('COLL003', 'Collar Perlas Cultivadas', 59.99, 'collar-perlas.jpg', 'Collar de perlas cultivadas de agua dulce con cierre de plata.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 13),
-('COLL004', 'Collar Personalizado con Nombre', 45.99, 'collar-nombre.jpg', 'Collar con nombre personalizable en letra cursiva, chapado en oro.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 13),
-('COMP001', 'Procesador Intel Core i7-12700K', 349.99, 'procesador-i7.jpg', 'Procesador de 12 núcleos y 20 hilos, velocidad base de 3.6GHz y turbo hasta 5.0GHz.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
-('COMP002', 'Tarjeta Gráfica NVIDIA RTX 4060', 399.99, 'rtx-4060.jpg', 'Tarjeta gráfica con 8GB GDDR6, ideal para gaming en 1440p.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
-('COMP003', 'Memoria RAM Corsair Vengeance 16GB', 89.99, 'ram-corsair.jpg', 'Kit de memoria RAM DDR4 de 16GB (2x8GB) a 3200MHz con iluminación RGB.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 2),
-('COMP004', 'Placa Base ASUS ROG Strix B550-F', 169.99, 'asus-b550.jpg', 'Placa base ATX con soporte para AMD Ryzen 5000, WiFi 6 y puertos USB 3.2.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
-('COMP005', 'Fuente de Alimentación EVGA 750W', 99.99, 'evga-psu.jpg', 'Fuente modular 80 Plus Gold con capacidad de 750W y ventilador silencioso.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
-('DECO001', 'Lámpara de Pie Moderna', 89.99, 'lampara-pie.jpg', 'Lámpara de pie con pantalla textil y estructura metálica negra, altura ajustable.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
-('DECO002', 'Conjunto de 3 Cuadros Abstractos', 59.99, 'cuadros-abstractos.jpg', 'Set de 3 cuadros con diseños abstractos geométricos, marco negro y tamaño 30x40cm.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 12),
-('DECO003', 'Espejo de Pared Redondo', 79.99, 'espejo-redondo.jpg', 'Espejo de pared redondo con marco dorado de 80cm de diámetro.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
-('DECO004', 'Alfombra Salón 160x230cm', 129.99, 'alfombra-salon.jpg', 'Alfombra de pelo corto para salón con diseño geométrico en tonos grises y blancos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
-('DECO005', 'Set de Velas Aromáticas', 24.99, 'velas-aromaticas.jpg', 'Conjunto de 3 velas aromáticas en recipiente de cristal con aromas de vainilla, lavanda y cítricos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
-('FRIG001', 'Frigorífico Combi Bosch KGN39VIDA', 699.99, 'bosch-combi.jpg', 'Frigorífico combi No Frost de 203x60cm, clase A+++ con cajón VitaFresh y acabado en acero inoxidable.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 7),
-('FRIG002', 'Frigorífico Side by Side Samsung RS68A8840S9', 1499.99, 'samsung-side.jpg', 'Frigorífico americano con dispensador de agua y hielo, pantalla digital y tecnología SpaceMax.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 7),
-('FRIG003', 'Mini Nevera Klarstein 48L', 129.99, 'klarstein-mini.jpg', 'Mini nevera de 48 litros ideal para habitaciones, oficinas o zonas de ocio.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 7),
-('FRIG004', 'Frigorífico una puerta Liebherr K 3130', 449.99, 'liebherr-una.jpg', 'Frigorífico de una puerta con 297 litros de capacidad y eficiencia energética A++.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 7),
-('GEN001', 'Set de Maletas 3 piezas', 149.99, 'maletas-set.jpg', 'Conjunto de 3 maletas rígidas con ruedas 360° en diferentes tamaños, color azul marino.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
-('GEN002', 'Reloj de Pared Moderno', 34.99, 'reloj-pared.jpg', 'Reloj de pared con diseño minimalista, números grandes y marco metálico negro.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 1),
-('GEN003', 'Set de Toallas 5 piezas', 49.99, 'toallas-set.jpg', 'Conjunto de 5 toallas de diferentes tamaños en algodón 100%, color gris antracita.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
-('GEN004', 'Báscula Digital de Baño', 19.99, 'bascula-baño.jpg', 'Báscula digital con pantalla LCD, capacidad hasta 180kg y función de medición de grasa corporal.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
-('GEN005', 'Paraguas Plegable Automático', 24.99, 'paraguas-auto.jpg', 'Paraguas plegable con apertura y cierre automáticos, tejido repelente al agua y estructura reforzada.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
-('HOR001', 'Horno Balay 3HB4331X0', 329.99, 'balay-horno.jpg', 'Horno multifunción de acero inoxidable con 7 funciones y sistema de limpieza pirolítica.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 5),
-('HOR002', 'Horno Bosch HBA5370S0', 449.99, 'bosch-horno.jpg', 'Horno eléctrico con 10 modos de cocción, display LCD y eficiencia energética A+.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 5),
-('HOR003', 'Microondas con Grill Samsung MG23K3515AK', 129.99, 'samsung-microondas.jpg', 'Microondas de 23L con función grill, 800W de potencia y panel táctil.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 5),
-('HOR004', 'Horno de Vapor Siemens iQ700', 799.99, 'siemens-vapor.jpg', 'Horno de vapor con funciones avanzadas, pantalla TFT y conexión Home Connect.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 5),
-('JARD001', 'Conjunto Mesa y 4 Sillas para Exterior', 299.99, 'conjunto-jardin.jpg', 'Conjunto de mesa y 4 sillas para jardín en ratán sintético resistente a la intemperie.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
-('JARD002', 'Barbacoa de Gas a Quemadores', 249.99, 'barbacoa-gas.jpg', 'Barbacoa de gas con 3 quemadores, tapa con termómetro y parrillas de hierro fundido.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 17),
-('JARD003', 'Parasol Reclinable 3 metros', 79.99, 'parasol-reclinable.jpg', 'Parasol reclinable de 3 metros de diámetro con manivela para apertura fácil, color beige.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
-('JARD004', 'Set de Herramientas de Jardinería', 39.99, 'herramientas-jardin.jpg', 'Kit completo con 8 herramientas esenciales para jardinería con estuche organizador.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
-('JARD005', 'Macetero Vertical para Hierbas', 59.99, 'macetero-hierbas.jpg', 'Macetero vertical con 5 niveles para cultivo de hierbas aromáticas y pequeñas plantas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
-('LAV001', 'Lavadora Siemens WM14T790ES', 599.99, 'siemens-lavadora.jpg', 'Lavadora de carga frontal de 9kg, 1400rpm, eficiencia A+++ y motor iQdrive.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 8),
-('LAV002', 'Lavadora-Secadora LG F4DN408S0', 749.99, 'lg-lavaseca.jpg', 'Lavadora-secadora con capacidad de 8/5kg, 1400rpm y tecnología 6 Motion Direct Drive.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 8),
-('LAV003', 'Lavadora Carga Superior Indesit BTW L60300', 329.99, 'indesit-superior.jpg', 'Lavadora de carga superior con 6kg de capacidad, 1000rpm y programas rápidos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 8),
-('LAV004', 'Secadora Balay 3SC377B', 449.99, 'balay-secadora.jpg', 'Secadora de condensación con bomba de calor, 7kg de capacidad y eficiencia A++.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 8),
-('MON001', 'Monitor LG UltraGear 27\" 144Hz', 249.99, 'lg-monitor.jpg', 'Monitor gaming de 27 pulgadas con resolución 1440p, 144Hz y tiempo de respuesta de 1ms.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 3),
-('MON002', 'Monitor Samsung Odyssey G5 32\"', 329.99, 'samsung-odyssey.jpg', 'Monitor curvo gaming de 32 pulgadas con resolución 2K y frecuencia de 165Hz.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 3),
-('MON003', 'Monitor ASUS ProArt 27\" 4K', 499.99, 'asus-proart.jpg', 'Monitor profesional con pantalla 4K, calibrado de fábrica para diseño gráfico y edición de vídeo.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 3),
-('MON004', 'Monitor Dell UltraSharp 24\"', 199.99, 'dell-ultrasharp.jpg', 'Monitor de 24 pulgadas con panel IPS, resolución 1080p y excelente calibración de color.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 3),
-('MUEB001', 'Mesa de Comedor Extensible', 299.99, 'mesa-comedor.jpg', 'Mesa de comedor extensible de 140/200cm, con acabado en madera de roble y patas metálicas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
-('MUEB002', 'Armario 4 Puertas con Espejo', 399.99, 'armario-espejo.jpg', 'Armario de 4 puertas con espejo central, acabado en blanco mate y gran capacidad interior.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 11),
-('MUEB003', 'Cómoda de 6 Cajones', 199.99, 'comoda-cajones.jpg', 'Cómoda con 6 cajones espaciosos, acabado en madera de pino natural con tiradores metálicos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
-('MUEB004', 'Escritorio con Estantería', 149.99, 'escritorio-estanteria.jpg', 'Escritorio con estantería lateral integrada, acabado en blanco y roble con cajón organizador.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
-('MUEB005', 'Mesita de Noche Nórdica', 69.99, 'mesita-nordica.jpg', 'Mesita de noche con 2 cajones, diseño nórdico en madera clara con patas inclinadas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
-('PER001', 'Teclado Mecánico Logitech G Pro', 129.99, 'logitech-teclado.jpg', 'Teclado mecánico gaming con switches GX Blue y retroiluminación RGB.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
-('PER002', 'Ratón Razer DeathAdder V2', 69.99, 'razer-deathadder.jpg', 'Ratón gaming ergonómico con sensor óptico de 20.000 DPI y switches ópticos.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 4),
-('PER003', 'Auriculares HyperX Cloud Alpha', 99.99, 'hyperx-cloud.jpg', 'Auriculares gaming con micrófono desmontable y sonido envolvente 7.1.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
-('PER004', 'Webcam Logitech C920 HD Pro', 79.99, 'logitech-webcam.jpg', 'Webcam Full HD 1080p con micrófono dual y corrección automática de luz.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
-('PER005', 'Alfombrilla SteelSeries QcK XXL', 29.99, 'steelseries-pad.jpg', 'Alfombrilla de gran tamaño (900x400mm) con base antideslizante y superficie microtexturada.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
-('SOFA001', 'Sofá 3 plazas IKEA KIVIK', 499.99, 'ikea-kivik.jpg', 'Sofá de 3 plazas con reposapiés incluido, tapizado en tela gris oscuro y asientos extraíbles.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 10),
-('SOFA002', 'Sofá Chaise Longue Reclinable', 699.99, 'chaise-longue.jpg', 'Sofá con chaise longue a la derecha, asientos reclinables y función cama, tapizado en polipiel.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 10),
-('SOFA003', 'Sofá Cama Clic-Clac', 349.99, 'sofa-cama.jpg', 'Sofá cama con sistema clic-clac para convertirlo en cama de matrimonio, tapizado en tela azul.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 10),
-('SOFA004', 'Sillón Orejero Reclinable', 279.99, 'sillon-orejero.jpg', 'Sillón orejero con función relax manual, tapizado en tela antimanchas color beige.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 10);
+INSERT INTO `productos` (`codigo`, `nombre_producto`, `precio`, `precio_rebajado`, `imagen`, `descripcion`, `vendedor`, `fecha_subida`, `rebajado`, `categoria`) VALUES
+('ACC001', 'Pendientes Aro Grandes', 19.99, NULL, 'pendientes-aro.jpg', 'Pendientes de aro de 5cm de diámetro, acabado dorado mate.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
+('ACC002', 'Pulsera Elástica con Charms', 24.99, 18.74, 'pulsera-charms.jpg', 'Pulsera elástica con diferentes charms decorativos, ajustable a todas las muñecas.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 15),
+('ACC003', 'Broche Floral Vintage', 15.99, NULL, 'broche-floral.jpg', 'Broche con diseño floral estilo vintage, acabado en oro envejecido con detalles de cristal.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
+('ACC004', 'Set de Horquillas Decorativas', 12.99, NULL, 'horquillas-deco.jpg', 'Conjunto de 6 horquillas decorativas con perlas y cristales para peinados de ocasión.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
+('ACC005', 'Tobillera con Colgantes', 18.99, NULL, 'tobillera-colgantes.jpg', 'Tobillera ajustable con pequeños colgantes en forma de estrella, chapada en plata.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 15),
+('AIRE001', 'Aire Acondicionado Split Daikin 2200 frig/h', 549.99, NULL, 'daikin-split.jpg', 'Aire acondicionado inverter con 2200 frigorías, eficiencia A++ y muy silencioso.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 6),
+('AIRE002', 'Aire Acondicionado Portátil Delonghi PAC', 349.99, 279.99, 'delonghi-portatil.jpg', 'Aire acondicionado portátil de 2700 frigorías con función deshumidificador y mando a distancia.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 6),
+('AIRE003', 'Multi Split Mitsubishi 3x1', 1299.99, NULL, 'mitsubishi-multi.jpg', 'Sistema multisplit 3x1 con unidad exterior y tres unidades interiores para climatizar varias habitaciones.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 6),
+('AIRE004', 'Ventilador de Torre Rowenta Eole Infinite', 89.99, NULL, 'rowenta-ventilador.jpg', 'Ventilador de torre con 3 velocidades, modo noche y temporizador de 8 horas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 6),
+('ANIL001', 'Anillo Solitario con Circonita', 49.99, NULL, 'anillo-solitario.jpg', 'Anillo solitario con piedra circonita central de 6mm, acabado en plata de ley.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 14),
+('ANIL002', 'Set de 3 Anillos Apilables', 39.99, 25.99, 'anillos-apilables.jpg', 'Conjunto de 3 anillos finos para combinar en acabados oro, plata y oro rosa.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 14),
+('ANIL003', 'Anillo Ajustable con Perla', 29.99, NULL, 'anillo-perla.jpg', 'Anillo ajustable con perla sintética y detalles en forma de hojas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 14),
+('ANIL004', 'Alianza Fina con Grabado', 59.99, NULL, 'alianza-grabado.jpg', 'Alianza fina con posibilidad de grabado interior, en plata de primera ley.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 14),
+('COLL001', 'Collar Gargantilla con Cristales', 29.99, NULL, 'collar-gargantilla.jpg', 'Gargantilla ajustable con cristales transparentes, acabado en plata.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 13),
+('COLL002', 'Collar Colgante Corazón', 39.99, 27.99, 'collar-corazon.jpg', 'Cadena con colgante de corazón y detalle de circonita, baño en oro rosa.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 13),
+('COLL003', 'Collar Perlas Cultivadas', 59.99, NULL, 'collar-perlas.jpg', 'Collar de perlas cultivadas de agua dulce con cierre de plata.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 13),
+('COLL004', 'Collar Personalizado con Nombre', 45.99, NULL, 'collar-nombre.jpg', 'Collar con nombre personalizable en letra cursiva, chapado en oro.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 13),
+('COMP001', 'Procesador Intel Core i7-12700K', 349.99, NULL, 'inteli7', 'Procesador de 12 núcleos y 20 hilos, velocidad base de 3.6GHz y turbo hasta 5.0GHz.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
+('COMP002', 'Tarjeta Gráfica NVIDIA RTX 4060', 399.99, NULL, 'rtx4060', 'Tarjeta gráfica con 8GB GDDR6, ideal para gaming en 1440p.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
+('COMP003', 'Memoria RAM Corsair Vengeance 16GB', 89.99, 76.49, 'corsairddr4', 'Kit de memoria RAM DDR4 de 16GB (2x8GB) a 3200MHz con iluminación RGB.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 2),
+('COMP004', 'Placa Base ASUS ROG Strix B550-F', 169.99, NULL, 'asus-b550.jpg', 'Placa base ATX con soporte para AMD Ryzen 5000, WiFi 6 y puertos USB 3.2.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
+('COMP005', 'Fuente de Alimentación EVGA 750W', 99.99, NULL, 'evga-psu.jpg', 'Fuente modular 80 Plus Gold con capacidad de 750W y ventilador silencioso.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 2),
+('DECO001', 'Lámpara de Pie Moderna', 89.99, NULL, 'lampara-pie.jpg', 'Lámpara de pie con pantalla textil y estructura metálica negra, altura ajustable.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
+('DECO002', 'Conjunto de 3 Cuadros Abstractos', 59.99, 41.99, 'cuadros-abstractos.jpg', 'Set de 3 cuadros con diseños abstractos geométricos, marco negro y tamaño 30x40cm.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 12),
+('DECO003', 'Espejo de Pared Redondo', 79.99, NULL, 'espejo-redondo.jpg', 'Espejo de pared redondo con marco dorado de 80cm de diámetro.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
+('DECO004', 'Alfombra Salón 160x230cm', 129.99, NULL, 'alfombra-salon.jpg', 'Alfombra de pelo corto para salón con diseño geométrico en tonos grises y blancos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
+('DECO005', 'Set de Velas Aromáticas', 24.99, NULL, 'velas-aromaticas.jpg', 'Conjunto de 3 velas aromáticas en recipiente de cristal con aromas de vainilla, lavanda y cítricos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 12),
+('FRIG001', 'Frigorífico Combi Bosch KGN39VIDA', 699.99, NULL, 'bosch-combi.jpg', 'Frigorífico combi No Frost de 203x60cm, clase A+++ con cajón VitaFresh y acabado en acero inoxidable.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 7),
+('FRIG002', 'Frigorífico Side by Side Samsung RS68A8840S9', 1499.99, 1274.99, 'samsung-side.jpg', 'Frigorífico americano con dispensador de agua y hielo, pantalla digital y tecnología SpaceMax.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 7),
+('FRIG003', 'Mini Nevera Klarstein 48L', 129.99, NULL, 'klarstein-mini.jpg', 'Mini nevera de 48 litros ideal para habitaciones, oficinas o zonas de ocio.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 7),
+('FRIG004', 'Frigorífico una puerta Liebherr K 3130', 449.99, NULL, 'liebherr-una.jpg', 'Frigorífico de una puerta con 297 litros de capacidad y eficiencia energética A++.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 7),
+('GEN001', 'Set de Maletas 3 piezas', 149.99, NULL, 'maletas-set.jpg', 'Conjunto de 3 maletas rígidas con ruedas 360° en diferentes tamaños, color azul marino.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
+('GEN002', 'Reloj de Pared Moderno', 34.99, 26.24, 'reloj-pared.jpg', 'Reloj de pared con diseño minimalista, números grandes y marco metálico negro.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 1),
+('GEN003', 'Set de Toallas 5 piezas', 49.99, NULL, 'toallas-set.jpg', 'Conjunto de 5 toallas de diferentes tamaños en algodón 100%, color gris antracita.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
+('GEN004', 'Báscula Digital de Baño', 19.99, NULL, 'bascula-baño.jpg', 'Báscula digital con pantalla LCD, capacidad hasta 180kg y función de medición de grasa corporal.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
+('GEN005', 'Paraguas Plegable Automático', 24.99, NULL, 'paraguas-auto.jpg', 'Paraguas plegable con apertura y cierre automáticos, tejido repelente al agua y estructura reforzada.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 1),
+('HOR001', 'Horno Balay 3HB4331X0', 329.99, NULL, 'balay-horno.jpg', 'Horno multifunción de acero inoxidable con 7 funciones y sistema de limpieza pirolítica.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 5),
+('HOR002', 'Horno Bosch HBA5370S0', 449.99, 337.49, 'bosch-horno.jpg', 'Horno eléctrico con 10 modos de cocción, display LCD y eficiencia energética A+.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 5),
+('HOR003', 'Microondas con Grill Samsung MG23K3515AK', 129.99, NULL, 'samsung-microondas.jpg', 'Microondas de 23L con función grill, 800W de potencia y panel táctil.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 5),
+('HOR004', 'Horno de Vapor Siemens iQ700', 799.99, NULL, 'siemens-vapor.jpg', 'Horno de vapor con funciones avanzadas, pantalla TFT y conexión Home Connect.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 5),
+('JARD001', 'Conjunto Mesa y 4 Sillas para Exterior', 299.99, NULL, 'conjunto-jardin.jpg', 'Conjunto de mesa y 4 sillas para jardín en ratán sintético resistente a la intemperie.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
+('JARD002', 'Barbacoa de Gas a Quemadores', 249.99, 199.99, 'barbacoa-gas.jpg', 'Barbacoa de gas con 3 quemadores, tapa con termómetro y parrillas de hierro fundido.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 17),
+('JARD003', 'Parasol Reclinable 3 metros', 79.99, NULL, 'parasol-reclinable.jpg', 'Parasol reclinable de 3 metros de diámetro con manivela para apertura fácil, color beige.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
+('JARD004', 'Set de Herramientas de Jardinería', 39.99, NULL, 'herramientas-jardin.jpg', 'Kit completo con 8 herramientas esenciales para jardinería con estuche organizador.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
+('JARD005', 'Macetero Vertical para Hierbas', 59.99, NULL, 'macetero-hierbas.jpg', 'Macetero vertical con 5 niveles para cultivo de hierbas aromáticas y pequeñas plantas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 17),
+('LAV001', 'Lavadora Siemens WM14T790ES', 599.99, NULL, 'siemens-lavadora.jpg', 'Lavadora de carga frontal de 9kg, 1400rpm, eficiencia A+++ y motor iQdrive.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 8),
+('LAV002', 'Lavadora-Secadora LG F4DN408S0', 749.99, 599.99, 'lg-lavaseca.jpg', 'Lavadora-secadora con capacidad de 8/5kg, 1400rpm y tecnología 6 Motion Direct Drive.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 8),
+('LAV003', 'Lavadora Carga Superior Indesit BTW L60300', 329.99, NULL, 'indesit-superior.jpg', 'Lavadora de carga superior con 6kg de capacidad, 1000rpm y programas rápidos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 8),
+('LAV004', 'Secadora Balay 3SC377B', 449.99, NULL, 'balay-secadora.jpg', 'Secadora de condensación con bomba de calor, 7kg de capacidad y eficiencia A++.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 8),
+('MON001', 'Monitor LG UltraGear 27\" 144Hz', 249.99, NULL, 'lg-monitor.jpg', 'Monitor gaming de 27 pulgadas con resolución 1440p, 144Hz y tiempo de respuesta de 1ms.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 3),
+('MON002', 'Monitor Samsung Odyssey G5 32\"', 329.99, 263.99, 'samsung-odyssey.jpg', 'Monitor curvo gaming de 32 pulgadas con resolución 2K y frecuencia de 165Hz.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 3),
+('MON003', 'Monitor ASUS ProArt 27\" 4K', 499.99, NULL, 'asus-proart.jpg', 'Monitor profesional con pantalla 4K, calibrado de fábrica para diseño gráfico y edición de vídeo.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 3),
+('MON004', 'Monitor Dell UltraSharp 24\"', 199.99, NULL, 'dell-ultrasharp.jpg', 'Monitor de 24 pulgadas con panel IPS, resolución 1080p y excelente calibración de color.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 3),
+('MUEB001', 'Mesa de Comedor Extensible', 299.99, NULL, 'mesa-comedor.jpg', 'Mesa de comedor extensible de 140/200cm, con acabado en madera de roble y patas metálicas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
+('MUEB002', 'Armario 4 Puertas con Espejo', 399.99, 299.99, 'armario-espejo.jpg', 'Armario de 4 puertas con espejo central, acabado en blanco mate y gran capacidad interior.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 11),
+('MUEB003', 'Cómoda de 6 Cajones', 199.99, NULL, 'comoda-cajones.jpg', 'Cómoda con 6 cajones espaciosos, acabado en madera de pino natural con tiradores metálicos.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
+('MUEB004', 'Escritorio con Estantería', 149.99, NULL, 'escritorio-estanteria.jpg', 'Escritorio con estantería lateral integrada, acabado en blanco y roble con cajón organizador.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
+('MUEB005', 'Mesita de Noche Nórdica', 69.99, NULL, 'mesita-nordica.jpg', 'Mesita de noche con 2 cajones, diseño nórdico en madera clara con patas inclinadas.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 11),
+('PER001', 'Teclado Mecánico Logitech G Pro', 129.99, NULL, 'logitech-teclado.jpg', 'Teclado mecánico gaming con switches GX Blue y retroiluminación RGB.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
+('PER002', 'Ratón Razer DeathAdder V2', 69.99, 52.49, 'razer-deathadder.jpg', 'Ratón gaming ergonómico con sensor óptico de 20.000 DPI y switches ópticos.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 4),
+('PER003', 'Auriculares HyperX Cloud Alpha', 99.99, NULL, 'hyperx-cloud.jpg', 'Auriculares gaming con micrófono desmontable y sonido envolvente 7.1.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
+('PER004', 'Webcam Logitech C920 HD Pro', 79.99, NULL, 'logitech-webcam.jpg', 'Webcam Full HD 1080p con micrófono dual y corrección automática de luz.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
+('PER005', 'Alfombrilla SteelSeries QcK XXL', 29.99, NULL, 'steelseries-pad.jpg', 'Alfombrilla de gran tamaño (900x400mm) con base antideslizante y superficie microtexturada.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 4),
+('SOFA001', 'Sofá 3 plazas IKEA KIVIK', 499.99, NULL, 'ikea-kivik.jpg', 'Sofá de 3 plazas con reposapiés incluido, tapizado en tela gris oscuro y asientos extraíbles.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 10),
+('SOFA002', 'Sofá Chaise Longue Reclinable', 699.99, 559.99, 'chaise-longue.jpg', 'Sofá con chaise longue a la derecha, asientos reclinables y función cama, tapizado en polipiel.', '192923492934221234-B', '2025-04-11 10:20:25', 1, 10),
+('SOFA003', 'Sofá Cama Clic-Clac', 349.99, NULL, 'sofa-cama.jpg', 'Sofá cama con sistema clic-clac para convertirlo en cama de matrimonio, tapizado en tela azul.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 10),
+('SOFA004', 'Sillón Orejero Reclinable', 279.99, NULL, 'sillon-orejero.jpg', 'Sillón orejero con función relax manual, tapizado en tela antimanchas color beige.', '192923492934221234-B', '2025-04-11 10:20:25', 0, 10);
 
 -- --------------------------------------------------------
 
@@ -201,7 +220,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`codigo_usuario`, `nombre_usuario`, `password`) VALUES
-(3, 'Admin', '1234');
+(3, 'Admin', '1234'),
+(4, 'pepito', '1234');
 
 -- --------------------------------------------------------
 
@@ -251,6 +271,14 @@ ALTER TABLE `categorias_generales`
   ADD UNIQUE KEY `nombre_catgeneral` (`nombre_catgeneral`);
 
 --
+-- Indices de la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD PRIMARY KEY (`codigo_comentario`),
+  ADD KEY `fk_producto` (`codigo_producto`),
+  ADD KEY `fk_usuario` (`codigo_usuario`);
+
+--
 -- Indices de la tabla `productos`
 --
 ALTER TABLE `productos`
@@ -278,7 +306,7 @@ ALTER TABLE `vendedor`
 -- AUTO_INCREMENT de la tabla `carrito`
 --
 ALTER TABLE `carrito`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=246;
 
 --
 -- AUTO_INCREMENT de la tabla `categoria`
@@ -296,7 +324,7 @@ ALTER TABLE `categorias_generales`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `codigo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `codigo_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Restricciones para tablas volcadas
@@ -314,6 +342,13 @@ ALTER TABLE `carrito`
 --
 ALTER TABLE `categoria`
   ADD CONSTRAINT `fk_categoria_catgeneral` FOREIGN KEY (`catgeneral_id`) REFERENCES `categorias_generales` (`codigo_catgeneral`) ON UPDATE CASCADE;
+
+--
+-- Filtros para la tabla `comentario`
+--
+ALTER TABLE `comentario`
+  ADD CONSTRAINT `fk_producto` FOREIGN KEY (`codigo_producto`) REFERENCES `productos` (`codigo`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_usuario` FOREIGN KEY (`codigo_usuario`) REFERENCES `usuarios` (`codigo_usuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `productos`
