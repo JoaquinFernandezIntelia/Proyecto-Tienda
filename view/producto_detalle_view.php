@@ -321,6 +321,7 @@ require_once('view/navbar_view.php');
                         </div>
                     <?php endif; ?>
                     <div class="tax-info">IVA incluido</div>
+                    <div class="tax-info">Vendedor: <?php   ?></div>
                 </div>
                 
                 <form method="post" action="index.php?controlador=usuarios&action=almacenar_pedidos" class="cart-form">
@@ -406,5 +407,3 @@ require_once('view/navbar_view.php');
         });
     });
 </script>
-
-<?php include_once 'footer_view.php'; ?>

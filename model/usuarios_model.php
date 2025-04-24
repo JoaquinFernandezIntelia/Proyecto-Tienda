@@ -101,4 +101,5 @@ class Usuarios_model
 
         return null;
     }
+    // Obtener información del vendedor por código
 }

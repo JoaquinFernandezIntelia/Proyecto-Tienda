@@ -17,14 +17,14 @@
       <h4>Síguenos</h4>
       <div class="social-icons">
         <a href="https:\\facebook.com" class="social-icon"><i class="fab fa-facebook"></i></a>
-        <a href="https:\\x.com" class="social-icon"><i class="fab fa-twitter"></i></a>
+        <a href="https:\\x.com" class="social-icon"><i class="fab fa-x"></i></a>
         <a href="https:\\instagram.com" class="social-icon"><i class="fab fa-instagram"></i></a>
         <a href="https:\\linkedin.com" class="social-icon"><i class="fab fa-linkedin"></i></a>
       </div>
     </div>
   </div>
   <div class="footer-credit">
-    <p>&copy; 2023 Tu Empresa. Todos los derechos reservados.</p>
+    <p>&copy; 2025 NEXTSHOP. Todos los derechos reservados.</p>
   </div>
   </div>
 </footer>
